@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  passwordHint String?
+  name         String?
+  createdAt    DateTime @default(now())
+  
+  quizzes   Quiz[]
+  students  Student[]
+}
+
+model Student {
+  id         String   @id @default(uuid())
+  firstName  String
+  lastName   String?
+  age        Int?
+  grade      String?
+  accessCode String   @unique // Login code
+  teacherId  String
+  createdAt  DateTime @default(now())
+
+  teacher     User         @relation(fields: [teacherId], references: [id])
+  attempts    Attempt[]
+  assignments Assignment[]
+}
+
+model Quiz {
+  id        String   @id @default(uuid())
+  title     String
+  teacherId String
+  createdAt DateTime @default(now())
+
+  teacher     User         @relation(fields: [teacherId], references: [id])
+  questions   Question[]
+  assignments Assignment[]
+  attempts    Attempt[]
+}
+
+model Question {
+  id           String @id @default(uuid())
+  text         String
+  options      String // JSON string of options array: ["A", "B", "C"]
+  correctIndex Int
+  tags         String? // JSON string or comma separated: "class:5,subject:math"
+  quizId       String
+  
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
+
+model Assignment {
+  id        String   @id @default(uuid())
+  quizId    String
+  studentId String
+  assignedAt DateTime @default(now())
+
+  quiz    Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([quizId, studentId]) // Prevent duplicate assignments
+}
+
+model Attempt {
+  id        String   @id @default(uuid())
+  score     Int
+  total     Int
+  date      DateTime @default(now())
+  studentId String
+  quizId    String
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  quiz    Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
