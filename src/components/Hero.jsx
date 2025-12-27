@@ -24,12 +24,21 @@ const Hero = () => {
                     lineHeight: '1.6',
                     maxWidth: '600px'
                 }}>
-                    <p style={{ marginBottom: '1.5rem' }}>
-                        Turn what you’ve already learned in class into lasting mastery. Review lessons, close knowledge gaps, and build confidence through personalized practice.
-                    </p>
-                    <p>
-                        Track your progress, strengthen weak areas, and stay ready for tests — without the stress.
-                    </p>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                        {[
+                            'Review lessons',
+                            'Close knowledge gaps',
+                            'Build confidence through personalized practice',
+                            'Track your progress',
+                            'Strengthen weak areas',
+                            'Stay ready for tests without the stress'
+                        ].map((point, idx) => (
+                            <li key={idx} style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                                <span style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>•</span>
+                                {point}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 <div style={{ marginTop: '1rem', color: 'var(--color-text)' }}>
                     <p style={{ fontWeight: '600', fontSize: '1.1rem' }}>Ready to master what you’ve learned?</p>
