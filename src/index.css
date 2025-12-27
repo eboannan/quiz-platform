@@ -129,14 +129,64 @@ button {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+.hidden-mobile {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .hidden-mobile {
+    display: flex !important;
+  }
+
+  .show-mobile {
+    display: none !important;
+  }
+}
+
 .grid-cols-2 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .grid-cols-2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 1rem;
+  white-space: nowrap;
 }

@@ -16,14 +16,6 @@ const TakeQuiz = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                // We need a specific getById or we filter. 
-                // Since this is for students, let's assume we can fetch by ID directly 
-                // but currently my backend quizzes.js only has teacher and student specific lists.
-                // Let's quickly add a generic GET /:id to quizzes.js for this.
-                // BUT for now, let's look for it in the student's dashboard or fetch it.
-
-                // Let's add a generic GET /api/quizzes/:id in backend.
-                // For now, I'll fetch it from the student profile if I can.
                 const student = JSON.parse(localStorage.getItem('studentAuth') || '{}');
                 if (!student.id) {
                     navigate('/student/login');
@@ -72,10 +64,9 @@ const TakeQuiz = () => {
     };
 
     const confirmSubmit = async () => {
-        // Calculate Score
         let correctCount = 0;
         quiz.questions.forEach((q, index) => {
-            if (answers[index] === q.correctIndex) { // Backend uses correctIndex
+            if (answers[index] === q.correctIndex) {
                 correctCount++;
             }
         });
@@ -83,12 +74,8 @@ const TakeQuiz = () => {
         setIsSubmitted(true);
         setShowConfirmModal(false);
 
-        // Save Attempt (only if not in simulation mode)
         const isSimulated = localStorage.getItem('simulationMode');
-        if (isSimulated) {
-            console.log("Simulation mode: Attempt not saved.");
-            return;
-        }
+        if (isSimulated) return;
 
         const student = JSON.parse(localStorage.getItem('studentAuth') || '{}');
         if (student.id) {
@@ -105,7 +92,7 @@ const TakeQuiz = () => {
         }
     };
 
-    if (isLoading) return <div style={{ padding: '5rem', textAlign: 'center' }}>Loading Quiz...</div>;
+    if (isLoading) return <div style={{ padding: '5rem', textAlign: 'center', color: '#64748b' }}>Preparing your quiz...</div>;
     if (!quiz) return <div style={{ padding: '2rem', textAlign: 'center' }}>Quiz not found.</div>;
 
     const unansweredIndices = quiz.questions
@@ -114,22 +101,22 @@ const TakeQuiz = () => {
 
     if (isSubmitted) {
         return (
-            <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', padding: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div style={{ backgroundColor: 'white', padding: '3rem', borderRadius: '24px', boxShadow: 'var(--shadow-lg)', maxWidth: '500px', width: '100%', textAlign: 'center' }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>
+            <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', padding: '1.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ backgroundColor: 'white', padding: 'clamp(2rem, 8vw, 4rem)', borderRadius: '32px', boxShadow: 'var(--shadow-lg)', maxWidth: '500px', width: '100%', textAlign: 'center' }}>
+                    <div style={{ fontSize: 'clamp(3rem, 10vw, 5rem)', marginBottom: '1rem' }}>
                         {score === quiz.questions.length ? '🏆' : score > quiz.questions.length / 2 ? '🎉' : '📚'}
                     </div>
-                    <h1 style={{ marginBottom: '1rem' }}>Quiz Results</h1>
-                    <p style={{ fontSize: '1.2rem', color: 'var(--color-text)', marginBottom: '2rem' }}>
-                        You scored <strong>{score}</strong> out of <strong>{quiz.questions.length}</strong>
+                    <h2 style={{ marginBottom: '1rem' }}>Quiz Finished!</h2>
+                    <p style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '2rem' }}>
+                        You got <strong>{score}</strong> out of <strong>{quiz.questions.length}</strong> correct.
                     </p>
-                    <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--color-primary)', marginBottom: '2rem' }}>
+                    <div style={{ fontSize: '3.5rem', fontWeight: '800', color: 'var(--color-primary)', marginBottom: '3rem' }}>
                         {Math.round((score / quiz.questions.length) * 100)}%
                     </div>
                     <button
                         onClick={() => navigate('/student/dashboard')}
                         className="btn btn-primary"
-                        style={{ width: '100%' }}
+                        style={{ width: '100%', padding: '1.25rem' }}
                     >
                         Back to Dashboard
                     </button>
@@ -139,69 +126,74 @@ const TakeQuiz = () => {
     }
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', paddingBottom: '4rem' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', paddingBottom: '6rem' }}>
             <div style={{
                 position: 'sticky',
                 top: 0,
-                backgroundColor: 'white',
-                padding: '1rem 2rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(10px)',
+                padding: '0.75rem clamp(1rem, 5vw, 2rem)',
                 borderBottom: '1px solid #e2e8f0',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                zIndex: 10
+                zIndex: 30
             }}>
-                <h2 style={{ fontSize: '1.2rem' }}>{quiz.title}</h2>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                    <h2 style={{ fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{quiz.title}</h2>
+                </div>
                 <div style={{
                     fontFamily: 'monospace',
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
+                    fontSize: 'clamp(1.1rem, 4vw, 1.4rem)',
+                    fontWeight: '800',
                     color: 'var(--color-primary)',
                     backgroundColor: '#e0e7ff',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '8px'
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '12px',
+                    marginLeft: '1rem'
                 }}>
                     {formatTime(timeElapsed)}
                 </div>
             </div>
 
-            <div className="container" style={{ maxWidth: '800px', padding: '2rem 1rem' }}>
+            <div className="container" style={{ maxWidth: '700px', padding: '2rem 1rem' }}>
                 {quiz.questions.map((q, qIndex) => (
-                    <div key={q.id} style={{
+                    <div key={q.id} className="animate-fade-in" style={{
                         backgroundColor: 'white',
-                        padding: '2rem',
-                        borderRadius: '16px',
+                        padding: 'clamp(1.5rem, 5vw, 2.5rem)',
+                        borderRadius: '24px',
                         boxShadow: 'var(--shadow-sm)',
                         marginBottom: '2rem',
-                        border: '1px solid #e2e8f0'
+                        border: '1px solid #f1f5f9',
+                        animationDelay: `${qIndex * 0.1}s`
                     }}>
-                        <h3 style={{ marginBottom: '1.5rem', display: 'flex', gap: '0.75rem' }}>
-                            <span style={{ color: '#94a3b8' }}>{qIndex + 1}.</span>
-                            <span>{q.text}</span>
+                        <h3 style={{ marginBottom: '1.75rem', display: 'flex', gap: '0.75rem', lineHeight: '1.4' }}>
+                            <span style={{ color: '#94a3b8', fontSize: '1.1rem' }}>{qIndex + 1}</span>
+                            <span style={{ fontSize: 'clamp(1.1rem, 4vw, 1.3rem)', fontWeight: '600' }}>{q.text}</span>
                         </h3>
-                        <div style={{ display: 'grid', gap: '1rem' }}>
+                        <div style={{ display: 'grid', gap: '0.85rem' }}>
                             {q.options.map((opt, oIndex) => (
                                 <div
                                     key={oIndex}
                                     onClick={() => handleOptionSelect(qIndex, oIndex)}
                                     style={{
-                                        padding: '1rem',
-                                        borderRadius: '12px',
+                                        padding: '1.1rem',
+                                        borderRadius: '16px',
                                         border: answers[qIndex] === oIndex ? '2px solid var(--color-primary)' : '1px solid #e2e8f0',
-                                        backgroundColor: answers[qIndex] === oIndex ? '#e0e7ff' : 'white',
+                                        backgroundColor: answers[qIndex] === oIndex ? '#f8fafc' : 'white',
                                         cursor: 'pointer',
-                                        transition: 'all 0.2s'
+                                        transition: 'all 0.15s ease'
                                     }}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                         <div style={{
-                                            width: '24px',
-                                            height: '24px',
+                                            minWidth: '22px',
+                                            height: '22px',
                                             borderRadius: '50%',
-                                            border: answers[qIndex] === oIndex ? '6px solid var(--color-primary)' : '2px solid #cbd5e1',
+                                            border: answers[qIndex] === oIndex ? '7px solid var(--color-primary)' : '2px solid #cbd5e1',
                                             backgroundColor: 'white'
                                         }} />
-                                        <span>{opt}</span>
+                                        <span style={{ fontSize: '0.95rem', fontWeight: answers[qIndex] === oIndex ? '700' : '400' }}>{opt}</span>
                                     </div>
                                 </div>
                             ))}
@@ -212,42 +204,38 @@ const TakeQuiz = () => {
                 <button
                     onClick={attemptSubmit}
                     className="btn btn-primary"
-                    style={{ width: '100%', padding: '1.5rem', fontSize: '1.25rem', borderRadius: '16px' }}
+                    style={{ width: '100%', padding: '1.5rem', fontSize: '1.25rem', borderRadius: '20px', marginTop: '1rem' }}
                 >
                     Submit Quiz
                 </button>
             </div>
 
             {showConfirmModal && (
-                <div style={{
-                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    zIndex: 50
-                }}>
-                    <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '16px', maxWidth: '400px', width: '90%' }}>
-                        <h3>Ready to Submit?</h3>
+                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 60, padding: '1rem' }}>
+                    <div style={{ backgroundColor: 'white', padding: '2.5rem', borderRadius: '24px', maxWidth: '420px', width: '100%', textAlign: 'center' }}>
+                        <h3 style={{ marginBottom: '1rem' }}>Finish Quiz?</h3>
                         {unansweredIndices.length > 0 ? (
-                            <p style={{ color: '#ef4444', margin: '1rem 0' }}>
-                                You have <strong>{unansweredIndices.length}</strong> unanswered question{unansweredIndices.length !== 1 && 's'}.
-                                <br />(Questions: {unansweredIndices.map(i => i + 1).join(', ')})
-                            </p>
+                            <div style={{ backgroundColor: '#fff1f2', padding: '1rem', borderRadius: '12px', border: '1px solid #fecdd3', marginBottom: '1.5rem' }}>
+                                <p style={{ color: '#e11d48', fontSize: '0.9rem', fontWeight: '600' }}>
+                                    Warning: You missed {unansweredIndices.length} question(s)!
+                                </p>
+                            </div>
                         ) : (
-                            <p style={{ margin: '1rem 0' }}>All questions answered! Ready to see your score?</p>
+                            <p style={{ color: '#64748b', marginBottom: '2rem' }}>Great job! You've answered every question. ready to submit?</p>
                         )}
-                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
                             <button
                                 onClick={() => setShowConfirmModal(false)}
-                                style={{ flex: 1, padding: '1rem', border: 'none', background: '#f1f5f9', borderRadius: '8px', cursor: 'pointer' }}
+                                style={{ flex: 1, padding: '1rem', border: 'none', background: '#f1f5f9', borderRadius: '12px', cursor: 'pointer', fontWeight: '600' }}
                             >
-                                Cancel
+                                Not yet
                             </button>
                             <button
                                 onClick={confirmSubmit}
                                 className="btn btn-primary"
-                                style={{ flex: 1 }}
+                                style={{ flex: 1.5 }}
                             >
-                                Yes, Submit
+                                Finish
                             </button>
                         </div>
                     </div>

@@ -59,60 +59,61 @@ const Login = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#f8fafc'
+            backgroundColor: '#f8fafc',
+            padding: '1.5rem'
         }}>
-            <div style={{
+            <div className="animate-fade-in" style={{
                 backgroundColor: 'white',
-                padding: '3rem',
-                borderRadius: '24px',
+                padding: 'clamp(1.5rem, 8vw, 3rem)',
+                borderRadius: '32px',
                 boxShadow: 'var(--shadow-lg)',
                 width: '100%',
-                maxWidth: '400px',
-                textAlign: 'center'
+                maxWidth: '450px',
+                textAlign: 'center',
+                border: '1px solid #f1f5f9'
             }}>
                 <div style={{
-                    marginBottom: '2rem',
+                    marginBottom: '1.5rem',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: '64px',
                     height: '64px',
-                    borderRadius: '50%',
-                    backgroundColor: '#f3f4f6',
-                    fontSize: '2rem'
+                    borderRadius: '20px',
+                    backgroundColor: '#f1f5f9',
+                    fontSize: '1.75rem'
                 }}>
                     🔒
                 </div>
 
-                <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                    {isRegister ? 'Create Account' : 'Teacher Access'}
+                <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '0.5rem', fontWeight: '800' }}>
+                    {isRegister ? 'New Teacher' : 'Welcome Back'}
                 </h2>
-                <p style={{ color: 'var(--color-text)', marginBottom: '2rem' }}>
-                    {isRegister ? 'Sign up to start managing your classes.' : 'Enter your credentials to continue.'}
+                <p style={{ color: 'var(--color-text)', marginBottom: '2rem', fontSize: '0.95rem' }}>
+                    {isRegister ? 'Join hundreds of teachers today.' : 'Manage your students and quizzes.'}
                 </p>
 
                 <form onSubmit={handleSubmit}>
                     {isRegister && (
-                        <div style={{ marginBottom: '1.25rem' }}>
+                        <div style={{ marginBottom: '1rem' }}>
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                placeholder="Full Name"
+                                placeholder="Display Name"
                                 required
                                 style={{
                                     width: '100%',
                                     padding: '1rem',
-                                    borderRadius: '12px',
+                                    borderRadius: '16px',
                                     border: '1px solid #e2e8f0',
-                                    fontSize: '1rem',
-                                    outline: 'none'
+                                    fontSize: '1rem'
                                 }}
                             />
                         </div>
                     )}
 
-                    <div style={{ marginBottom: '1.25rem' }}>
+                    <div style={{ marginBottom: '1rem' }}>
                         <input
                             type="email"
                             value={email}
@@ -122,10 +123,9 @@ const Login = () => {
                             style={{
                                 width: '100%',
                                 padding: '1rem',
-                                borderRadius: '12px',
+                                borderRadius: '16px',
                                 border: '1px solid #e2e8f0',
-                                fontSize: '1rem',
-                                outline: 'none'
+                                fontSize: '1rem'
                             }}
                         />
                     </div>
@@ -138,19 +138,18 @@ const Login = () => {
                                 setPassword(e.target.value);
                                 setError('');
                             }}
-                            placeholder="Password"
+                            placeholder="Secret Password"
                             required
                             style={{
                                 width: '100%',
                                 padding: '1rem',
-                                borderRadius: '12px',
+                                borderRadius: '16px',
                                 border: error ? '2px solid #ef4444' : '1px solid #e2e8f0',
-                                fontSize: '1rem',
-                                outline: 'none'
+                                fontSize: '1rem'
                             }}
                         />
-                        {error && <p style={{ color: '#ef4444', marginTop: '0.5rem', fontSize: '0.9rem' }}>{error}</p>}
-                        {hintToShow && <p style={{ color: 'var(--color-primary)', marginTop: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>{hintToShow}</p>}
+                        {error && <p style={{ color: '#ef4444', marginTop: '0.5rem', fontSize: '0.85rem', fontWeight: '600' }}>{error}</p>}
+                        {hintToShow && <p style={{ color: 'var(--color-primary)', marginTop: '0.5rem', fontSize: '0.85rem', fontWeight: '700' }}>{hintToShow}</p>}
                     </div>
 
                     {isRegister && (
@@ -163,23 +162,22 @@ const Login = () => {
                                 style={{
                                     width: '100%',
                                     padding: '1rem',
-                                    borderRadius: '12px',
+                                    borderRadius: '16px',
                                     border: '1px solid #e2e8f0',
-                                    fontSize: '1rem',
-                                    outline: 'none'
+                                    fontSize: '1rem'
                                 }}
                             />
                         </div>
                     )}
 
                     {!isRegister && (
-                        <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+                        <div style={{ textAlign: 'right', marginBottom: '1.5rem' }}>
                             <button
                                 type="button"
                                 onClick={handleGetHint}
-                                style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}
+                                style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '600' }}
                             >
-                                Forgot password? Show hint
+                                Forgot password? Get hint
                             </button>
                         </div>
                     )}
@@ -188,38 +186,39 @@ const Login = () => {
                         type="submit"
                         disabled={isLoading}
                         className="btn btn-primary"
-                        style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', opacity: isLoading ? 0.7 : 1 }}
+                        style={{ width: '100%', padding: '1.1rem', fontSize: '1.1rem', borderRadius: '16px' }}
                     >
-                        {isLoading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Enter Dashboard')}
+                        {isLoading ? 'Wait a moment...' : (isRegister ? 'Create My Account' : 'Sign In')}
                     </button>
                 </form>
 
-                <p style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: '#64748b' }}>
-                    {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
+                <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#64748b' }}>
+                    {isRegister ? 'Already have an account?' : "New here?"}{' '}
                     <button
                         onClick={() => {
                             setIsRegister(!isRegister);
                             setError('');
                             setHintToShow('');
                         }}
-                        style={{ background: 'none', border: 'none', color: 'var(--color-primary)', fontWeight: '600', cursor: 'pointer', textDecoration: 'underline' }}
+                        style={{ background: 'none', border: 'none', color: 'var(--color-primary)', fontWeight: '700', cursor: 'pointer' }}
                     >
-                        {isRegister ? 'Log In' : 'Sign Up'}
+                        {isRegister ? 'Sign In' : 'Join as Teacher'}
                     </button>
                 </p>
 
                 <button
                     onClick={() => navigate('/')}
                     style={{
-                        marginTop: '1.5rem',
+                        marginTop: '2rem',
                         background: 'none',
                         border: 'none',
                         color: 'var(--color-text)',
-                        textDecoration: 'underline',
-                        fontSize: '0.85rem'
+                        fontSize: '0.8rem',
+                        fontWeight: '500',
+                        opacity: 0.6
                     }}
                 >
-                    Back to Home
+                    ← Back to Start
                 </button>
             </div>
         </div>

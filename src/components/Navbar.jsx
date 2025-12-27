@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <nav style={{
@@ -20,7 +21,10 @@ const Navbar = () => {
                 height: '80px'
             }}>
                 {/* Logo */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div
+                    onClick={() => navigate('/')}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
+                >
                     <div style={{
                         width: '40px',
                         height: '40px',
@@ -38,31 +42,74 @@ const Navbar = () => {
                     </span>
                 </div>
 
-                {/* Links */}
-                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    {['Features'].map((item) => (
-                        <a key={item} href={`#${item.toLowerCase().replace(/ /g, '-')}`} style={{
-                            color: 'var(--color-text)',
-                            textDecoration: 'none',
-                            fontWeight: '500',
-                            fontFamily: 'var(--font-heading)',
-                            fontSize: '0.95rem'
-                        }}>
-                            {item}
-                        </a>
-                    ))}
+                {/* Desktop Menu */}
+                <div className="hidden-mobile" style={{ gap: '2rem', alignItems: 'center' }}>
+                    <a href="#features" style={{
+                        color: 'var(--color-text)',
+                        textDecoration: 'none',
+                        fontWeight: '500',
+                        fontSize: '0.95rem'
+                    }}>Features</a>
+
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <button className="btn btn-secondary" onClick={() => navigate('/teacher/login')}>
+                            Teacher Login
+                        </button>
+                        <button className="btn btn-primary" onClick={() => navigate('/student/login')}>
+                            Student Login
+                        </button>
+                    </div>
                 </div>
 
-                {/* Login Buttons */}
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button className="btn btn-secondary" onClick={() => navigate('/teacher/login')}>
+                {/* Mobile Menu Toggle */}
+                <button
+                    className="show-mobile"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    style={{
+                        background: 'none',
+                        fontSize: '1.5rem',
+                        padding: '0.5rem'
+                    }}
+                >
+                    {isMenuOpen ? '✕' : '☰'}
+                </button>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {isMenuOpen && (
+                <div className="show-mobile" style={{
+                    flexDirection: 'column',
+                    padding: '1rem',
+                    backgroundColor: 'white',
+                    borderBottom: '1px solid #e2e8f0',
+                    gap: '1rem'
+                }}>
+                    <a
+                        href="#features"
+                        onClick={() => setIsMenuOpen(false)}
+                        style={{
+                            padding: '1rem',
+                            color: 'var(--color-text)',
+                            textDecoration: 'none',
+                            fontWeight: '500'
+                        }}
+                    >Features</a>
+                    <button
+                        className="btn btn-secondary"
+                        style={{ width: '100%', justifyContent: 'center' }}
+                        onClick={() => { navigate('/teacher/login'); setIsMenuOpen(false); }}
+                    >
                         Teacher Login
                     </button>
-                    <button className="btn btn-primary" onClick={() => navigate('/student/login')}>
+                    <button
+                        className="btn btn-primary"
+                        style={{ width: '100%', justifyContent: 'center' }}
+                        onClick={() => { navigate('/student/login'); setIsMenuOpen(false); }}
+                    >
                         Student Login
                     </button>
                 </div>
-            </div>
+            )}
         </nav>
     );
 };
