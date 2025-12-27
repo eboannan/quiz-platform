@@ -15,19 +15,24 @@ const Hero = () => {
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em'
                 }}>
-                    Master Your Exams with <span className="text-gradient">Smart Quizzes</span>
+                    Master Your <span className="text-gradient">Schoolwork</span> with Quizzes
                 </h1>
-                <p style={{
+                <div style={{
                     fontSize: 'clamp(1.1rem, 3vw, 1.25rem)',
                     color: 'var(--color-text)',
                     marginBottom: '2.5rem',
                     lineHeight: '1.6',
-                    maxWidth: '500px'
+                    maxWidth: '600px'
                 }}>
-                    Engage students, track progress, and gamify the classroom experience. The all-in-one platform for modern education.
-                </p>
+                    <p style={{ marginBottom: '1.5rem' }}>
+                        Turn what you’ve already learned in class into lasting mastery. Review lessons, close knowledge gaps, and build confidence through personalized practice.
+                    </p>
+                    <p>
+                        Track your progress, strengthen weak areas, and stay ready for tests — without the stress.
+                    </p>
+                </div>
                 <div style={{ marginTop: '1rem', color: 'var(--color-text)' }}>
-                    <p style={{ fontWeight: '500' }}>Ready to start learning?</p>
+                    <p style={{ fontWeight: '600', fontSize: '1.1rem' }}>Ready to master what you’ve learned?</p>
                 </div>
             </div>
 
