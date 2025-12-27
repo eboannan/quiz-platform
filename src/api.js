@@ -1,18 +1,26 @@
 import axios from 'axios';
 
 // Base URL for backend. 
-// Ensure it ends with a slash if we use relative paths in endpoints.
-let API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-if (!API_URL.endsWith('/')) {
-    API_URL += '/';
+// We are making this extra robust to handle common deployment mistakes.
+let rawURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+// Ensure the URL ends with /api (but not /api/)
+let cleanURL = rawURL.trim();
+if (!cleanURL.includes('/api')) {
+    cleanURL = cleanURL.replace(/\/$/, '') + '/api';
+}
+if (!cleanURL.endsWith('/')) {
+    cleanURL += '/';
 }
 
 const api = axios.create({
-    baseURL: API_URL,
+    baseURL: cleanURL,
     headers: {
         'Content-Type': 'application/json',
     },
 });
+
+console.log("API Base URL configured as:", cleanURL);
 
 // Add a request interceptor to include the Token in all requests
 api.interceptors.request.use(
@@ -28,7 +36,7 @@ api.interceptors.request.use(
     }
 );
 
-// Endpoints should NOT start with a slash to be relative to baseURL
+// Endpoints should NEVER start with a slash to properly append to baseURL
 export const authAPI = {
     login: (credentials) => api.post('auth/login', credentials),
     register: (userData) => api.post('auth/register', userData),
