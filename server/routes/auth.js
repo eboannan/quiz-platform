@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const prisma = new PrismaClient();
 const SALT_ROUNDS = 10;
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey123';
 
@@ -55,9 +54,6 @@ router.get('/hint/:email', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        // For MVP transition, if email is '1234', we might want to handle legacy? 
-        // No, let's enforce real auth now.
 
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return res.status(400).json({ error: 'Invalid credentials' });
