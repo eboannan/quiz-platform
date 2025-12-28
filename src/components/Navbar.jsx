@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import penguinFull from '../assets/penguin_full.png';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -23,23 +24,13 @@ const Navbar = () => {
                 {/* Logo */}
                 <div
                     onClick={() => navigate('/')}
-                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
+                    style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
                 >
-                    <div style={{
-                        width: '40px',
-                        height: '40px',
-                        backgroundColor: 'var(--color-primary)',
-                        borderRadius: '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '1.2rem'
-                    }}>Q</div>
-                    <span style={{ fontSize: '1.5rem', fontWeight: '800', fontFamily: 'var(--font-heading)' }}>
-                        Quiz<span style={{ color: 'var(--color-primary)' }}>Master</span>
-                    </span>
+                    <img
+                        src={penguinFull}
+                        alt="PenguinPrep"
+                        style={{ height: '60px', width: 'auto', objectFit: 'contain' }}
+                    />
                 </div>
 
                 {/* Desktop Menu */}

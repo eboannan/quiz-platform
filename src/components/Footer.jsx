@@ -1,4 +1,5 @@
 import React from 'react';
+import penguinFull from '../assets/penguin_full.png';
 
 const Footer = () => {
     return (
@@ -6,10 +7,12 @@ const Footer = () => {
             <div className="container">
                 <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem' }}>
                     <div>
-                        <span style={{ fontSize: '1.5rem', fontWeight: '800', fontFamily: 'var(--font-heading)' }}>
-                            Quiz<span style={{ color: 'var(--color-secondary)' }}>Master</span>
-                        </span>
-                        <p style={{ marginTop: '1rem', color: '#94a3b8', maxWidth: '300px' }}>
+                        <img
+                            src={penguinFull}
+                            alt="PenguinPrep"
+                            style={{ height: '50px', width: 'auto', objectFit: 'contain', marginBottom: '1rem' }}
+                        />
+                        <p style={{ color: '#94a3b8', maxWidth: '300px' }}>
                             Empowering the next generation of learners through interactive assessment technology.
                         </p>
                     </div>
@@ -34,7 +37,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #334155', textAlign: 'center', color: '#64748b' }}>
-                    &copy; 2025 QuizMaster App. All rights reserved.
+                    &copy; 2025 PenguinPrep. All rights reserved.
                 </div>
             </div>
         </footer>
