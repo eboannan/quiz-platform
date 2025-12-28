@@ -10,7 +10,7 @@ const Footer = () => {
                         <img
                             src={penguinFull}
                             alt="PenguinPrep"
-                            style={{ height: '200px', width: 'auto', objectFit: 'contain', marginBottom: '1rem' }}
+                            style={{ height: '150px', width: 'auto', objectFit: 'contain', marginBottom: '1rem' }}
                         />
                         <p style={{ color: '#94a3b8', maxWidth: '300px' }}>
                             Empowering the next generation of learners through interactive assessment technology.
