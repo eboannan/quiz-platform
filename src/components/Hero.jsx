@@ -1,4 +1,4 @@
-import React from 'react';
+import studentImage from '../assets/student-image-final.png';
 
 const Hero = () => {
     return (
@@ -9,40 +9,17 @@ const Hero = () => {
             minHeight: '80vh'
         }}>
             <div className="animate-fade-in">
-                <h1 style={{
-                    fontWeight: '800',
-                    marginBottom: '1.5rem',
-                    lineHeight: '1.1',
-                    letterSpacing: '-0.02em'
-                }}>
-                    Master Your <span className="text-gradient">Schoolwork</span> with Quizzes
-                </h1>
-                <div style={{
-                    fontSize: 'clamp(1.1rem, 3vw, 1.25rem)',
-                    color: 'var(--color-text)',
-                    marginBottom: '2.5rem',
-                    lineHeight: '1.6',
-                    maxWidth: '600px'
-                }}>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                        {[
-                            'Review lessons',
-                            'Close knowledge gaps',
-                            'Build confidence through personalized practice',
-                            'Track your progress',
-                            'Strengthen weak areas',
-                            'Stay ready for tests without the stress'
-                        ].map((point, idx) => (
-                            <li key={idx} style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                                <span style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>•</span>
-                                {point}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div style={{ marginTop: '1rem', color: 'var(--color-text)' }}>
-                    <p style={{ fontWeight: '600', fontSize: '1.1rem' }}>Ready to master what you’ve learned?</p>
-                </div>
+                <img
+                    src={studentImage}
+                    alt="Student with PenguinPrep"
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '24px',
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                        display: 'block'
+                    }}
+                />
             </div>
 
             {/* Visual / Right Side */}
