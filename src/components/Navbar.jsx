@@ -17,7 +17,7 @@ const Navbar = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                height: '100px'
+                height: '160px'
             }}>
                 {/* Logo */}
                 <div
@@ -27,7 +27,7 @@ const Navbar = () => {
                     <img
                         src={penguinFull}
                         alt="PenguinPrep"
-                        style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+                        style={{ height: '140px', width: 'auto', objectFit: 'contain' }}
                     />
                 </div>
 

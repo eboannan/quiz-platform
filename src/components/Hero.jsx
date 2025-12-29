@@ -13,7 +13,7 @@ const Hero = () => {
             paddingBottom: 'clamp(4rem, 10vh, 8rem)',
             minHeight: '80vh'
         }}>
-            <div className="animate-fade-in" style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center' }}>
                 <img
                     src={studentImage}
                     alt="Student with PenguinPrep"
@@ -40,44 +40,39 @@ const Hero = () => {
                     borderRadius: '24px',
                     padding: 'clamp(1.5rem, 5vw, 2.5rem)'
                 }}>
-                    {/* Role Switcher */}
                     <div style={{
                         display: 'flex',
-                        backgroundColor: 'rgba(0,0,0,0.05)',
-                        padding: '4px',
-                        borderRadius: '12px',
-                        marginBottom: '1.5rem'
+                        gap: '2.5rem',
+                        marginBottom: '2rem'
                     }}>
-                        <button
+                        <div
                             onClick={() => setLoginRole('student')}
                             style={{
-                                flex: 1,
-                                padding: '0.6rem',
-                                borderRadius: '8px',
-                                border: 'none',
-                                backgroundColor: loginRole === 'student' ? 'white' : 'transparent',
-                                boxShadow: loginRole === 'student' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
-                                fontWeight: '600',
-                                color: loginRole === 'student' ? 'var(--color-primary)' : '#64748b',
+                                color: 'var(--color-text)',
+                                textDecoration: 'none',
+                                fontSize: '1rem',
+                                fontWeight: loginRole === 'student' ? '700' : '400',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s'
+                                opacity: loginRole === 'student' ? 1 : 0.6,
+                                transition: 'all 0.2s',
+                                borderBottom: loginRole === 'student' ? '2px solid var(--color-dark)' : 'none',
+                                paddingBottom: '0.25rem'
                             }}
-                        >Student Login</button>
-                        <button
+                        >Student</div>
+                        <div
                             onClick={() => setLoginRole('teacher')}
                             style={{
-                                flex: 1,
-                                padding: '0.6rem',
-                                borderRadius: '8px',
-                                border: 'none',
-                                backgroundColor: loginRole === 'teacher' ? 'white' : 'transparent',
-                                boxShadow: loginRole === 'teacher' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
-                                fontWeight: '600',
-                                color: loginRole === 'teacher' ? 'var(--color-primary)' : '#64748b',
+                                color: 'var(--color-text)',
+                                textDecoration: 'none',
+                                fontSize: '1rem',
+                                fontWeight: loginRole === 'teacher' ? '700' : '400',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s'
+                                opacity: loginRole === 'teacher' ? 1 : 0.6,
+                                transition: 'all 0.2s',
+                                borderBottom: loginRole === 'teacher' ? '2px solid var(--color-dark)' : 'none',
+                                paddingBottom: '0.25rem'
                             }}
-                        >Teacher Login</button>
+                        >Teacher</div>
                     </div>
 
                     {/* Login Form Card */}
