@@ -203,8 +203,12 @@ const Hero = () => {
                             Log in as {loginRole.charAt(0).toUpperCase() + loginRole.slice(1)}
                         </button>
 
-                        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
-                            Need an account? <span
+                        <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
+                            By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
+                        </div>
+
+                        <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
+                            Need a PenguinPrep account? <span
                                 onClick={() => navigate('/student/login')}
                                 style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
                             >Sign up today</span>
