@@ -31,7 +31,7 @@ const Footer = () => {
                             <h4 style={{ color: 'white', marginBottom: '1rem' }}>Legal</h4>
                             <ul style={{ listStyle: 'none' }}>
                                 <li style={{ marginBottom: '0.5rem' }}><Link to="/privacy-policy" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy Policy</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms of Service</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/terms-of-service" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms of Service</Link></li>
                                 <li style={{ marginBottom: '0.5rem' }}><Link to="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Cookie Policy</Link></li>
                             </ul>
                         </div>
