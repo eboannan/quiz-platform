@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import studentImage from '../assets/student-hero.png';
+import studentImage from '../assets/student-hero-final.jpg';
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -34,18 +34,6 @@ const Hero = () => {
                 animationDelay: '0.2s',
                 marginTop: '1rem' // Added back for mobile stacking
             }}>
-                <div style={{
-                    position: 'absolute',
-                    top: '-10%',
-                    right: '-10%',
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(135deg, #000000 0%, #94a3b8 100%)',
-                    filter: 'blur(100px)',
-                    opacity: 0.2,
-                    zIndex: -1,
-                    borderRadius: '50%'
-                }}></div>
                 <div style={{
                     backgroundColor: 'white',
                     borderRadius: '24px',
