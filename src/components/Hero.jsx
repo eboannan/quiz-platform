@@ -1,6 +1,11 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import studentImage from '../assets/student-image-dark-skin.png';
 
 const Hero = () => {
+    const navigate = useNavigate();
+    const [loginRole, setLoginRole] = useState('student');
+
     return (
         <section className="container grid-cols-2" style={{
             alignItems: 'center',
@@ -8,18 +13,26 @@ const Hero = () => {
             paddingBottom: 'clamp(4rem, 10vh, 8rem)',
             minHeight: '80vh'
         }}>
-            <div className="animate-fade-in">
+            <div className="animate-fade-in" style={{ textAlign: 'center' }}>
                 <img
                     src={studentImage}
                     alt="Student with PenguinPrep"
                     style={{
                         width: '100%',
+                        maxWidth: '450px',
                         height: 'auto',
                         borderRadius: '24px',
                         boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                        display: 'block'
+                        display: 'block',
+                        margin: '0 auto 2rem'
                     }}
                 />
+                <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem', color: 'var(--color-dark)' }}>Did you know?</h3>
+                    <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '1rem' }}>
+                        Regardless of where you start, mastering even just one lesson on PenguinPrep builds the confidence you need to succeed.
+                    </p>
+                </div>
             </div>
 
             {/* Visual / Right Side */}
@@ -48,64 +61,155 @@ const Hero = () => {
                     border: '1px solid rgba(0,0,0,0.05)',
                     transform: 'rotate(-1deg)'
                 }}>
-                    {/* Mock UI Card */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'center' }}>
-                        <span style={{ fontWeight: '600', color: 'var(--color-text)' }}>Algebra 1</span>
-                        <span style={{ backgroundColor: '#f3f4f6', color: '#000000', padding: '0.25rem 0.75rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '600', border: '1px solid #e5e7eb' }}>In Progress</span>
+                    {/* Role Switcher */}
+                    <div style={{
+                        display: 'flex',
+                        backgroundColor: '#f1f5f9',
+                        padding: '4px',
+                        borderRadius: '12px',
+                        marginBottom: '1.5rem'
+                    }}>
+                        <button
+                            onClick={() => setLoginRole('student')}
+                            style={{
+                                flex: 1,
+                                padding: '0.6rem',
+                                borderRadius: '8px',
+                                border: 'none',
+                                backgroundColor: loginRole === 'student' ? 'white' : 'transparent',
+                                boxShadow: loginRole === 'student' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
+                                fontWeight: '600',
+                                color: loginRole === 'student' ? 'var(--color-primary)' : '#64748b',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                        >Student Login</button>
+                        <button
+                            onClick={() => setLoginRole('teacher')}
+                            style={{
+                                flex: 1,
+                                padding: '0.6rem',
+                                borderRadius: '8px',
+                                border: 'none',
+                                backgroundColor: loginRole === 'teacher' ? 'white' : 'transparent',
+                                boxShadow: loginRole === 'teacher' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
+                                fontWeight: '600',
+                                color: loginRole === 'teacher' ? 'var(--color-primary)' : '#64748b',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                        >Teacher Login</button>
                     </div>
-                    <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Question 1</h3>
-                    <p style={{ fontSize: '1.1rem', marginBottom: '2rem', fontWeight: '600', lineHeight: '1.4' }}>
-                        A phone company charges a monthly fee of $20 plus $0.05 per text message. Which equation represents the total monthly cost C if t text messages are sent?
-                    </p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
-                        {[
-                            'C = 20t + 0.05',
-                            'C = 0.05t + 20',
-                            'C = 20 - 0.05t',
-                            'C = 0.05t - 20'
-                        ].map((opt, i) => (
-                            <div key={i} style={{
-                                padding: '1rem',
-                                border: i === 1 ? '2px solid #000000' : '1px solid #e2e8f0',
-                                borderRadius: '12px',
-                                cursor: 'default',
+
+                    {/* Login Form Card */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                        <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '1.5rem' }}>Log in now!</h2>
+
+                        {/* Social Logins */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                            <button style={{
+                                width: '100%',
+                                padding: '0.75rem',
+                                border: '1px solid #e2e8f0',
+                                borderRadius: '8px',
                                 backgroundColor: 'white',
-                                color: 'var(--color-dark)',
-                                fontWeight: i === 1 ? '700' : '400',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '1rem'
+                                justifyContent: 'center',
+                                gap: '10px',
+                                cursor: 'pointer',
+                                fontWeight: '500'
                             }}>
-                                <div style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    borderRadius: '50%',
-                                    border: '2px solid #e2e8f0',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: i === 1 ? '#000000' : 'transparent'
-                                }}>
-                                    {i === 1 && <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'white' }} />}
-                                </div>
-                                <span>{opt}</span>
+                                <span style={{ color: '#4285F4', fontWeight: '900', fontSize: '1.2rem' }}>G</span> Continue with Google
+                            </button>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+                                {['C', 'f', '', '田'].map((icon, i) => (
+                                    <button key={i} style={{
+                                        padding: '0.75rem',
+                                        border: '1px solid #e2e8f0',
+                                        borderRadius: '8px',
+                                        backgroundColor: 'white',
+                                        fontSize: '1.2rem',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>{icon}</button>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', color: '#64748b', fontSize: '0.85rem' }}>
+                            <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
+                            Or log in with email
+                            <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
+                        </div>
+
+                        {/* Form Fields */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Email or username</label>
+                                    <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="email@example.com"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.85rem',
+                                        borderRadius: '8px',
+                                        border: '1px solid #e2e8f0',
+                                        fontSize: '1rem'
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Password</label>
+                                    <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                </div>
+                                <input
+                                    type="password"
+                                    placeholder="••••••••••••"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.85rem',
+                                        borderRadius: '8px',
+                                        border: '1px solid #e2e8f0',
+                                        fontSize: '1rem'
+                                    }}
+                                />
+                                <a href="#" style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '500' }}>Forgot password?</a>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={() => navigate(loginRole === 'student' ? '/student/login' : '/teacher/login')}
+                            style={{
+                                width: '100%',
+                                padding: '1rem',
+                                backgroundColor: 'var(--color-primary)',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '8px',
+                                fontWeight: '700',
+                                fontSize: '1rem',
+                                marginTop: '2rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                            }}
+                        >
+                            Log in as {loginRole.charAt(0).toUpperCase() + loginRole.slice(1)}
+                        </button>
+
+                        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>
+                            Need an account? <span
+                                onClick={() => navigate('/student/login')}
+                                style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
+                            >Sign up today</span>
+                        </div>
                     </div>
-                    <button style={{
-                        width: '100%',
-                        padding: '1.25rem',
-                        backgroundColor: '#000000',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '16px',
-                        fontWeight: '700',
-                        fontSize: '1.1rem',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                    }}>
-                        Submit Quiz
-                    </button>
                 </div>
             </div>
         </section>
