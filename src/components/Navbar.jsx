@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import penguinFull from '../assets/penguin_full.png';
 
 const Navbar = () => {
@@ -34,13 +34,23 @@ const Navbar = () => {
                 {/* Desktop Menu */}
                 <div className="hidden-mobile" style={{ gap: '2rem', alignItems: 'center' }}>
 
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                        <button className="btn btn-secondary" onClick={() => navigate('/teacher/login')}>
-                            Teacher Login
-                        </button>
-                        <button className="btn btn-primary" onClick={() => navigate('/student/login')}>
-                            Student Login
-                        </button>
+                    <div style={{ display: 'flex', gap: '2rem' }}>
+                        <Link to="/teacher/login" style={{
+                            color: 'var(--color-text)',
+                            textDecoration: 'none',
+                            fontSize: '1rem',
+                            fontWeight: '500'
+                        }}>
+                            Teacher
+                        </Link>
+                        <Link to="/student/login" style={{
+                            color: 'var(--color-text)',
+                            textDecoration: 'none',
+                            fontSize: '1rem',
+                            fontWeight: '500'
+                        }}>
+                            Student
+                        </Link>
                     </div>
                 </div>
 
@@ -63,24 +73,35 @@ const Navbar = () => {
                 <div className="show-mobile" style={{
                     flexDirection: 'column',
                     padding: '1rem',
-                    backgroundColor: 'white',
-                    borderBottom: '1px solid #e2e8f0',
-                    gap: '1rem'
+                    backgroundColor: 'var(--color-bg)',
+                    borderBottom: '1px solid rgba(0,0,0,0.05)',
+                    gap: '0.5rem'
                 }}>
-                    <button
-                        className="btn btn-secondary"
-                        style={{ width: '100%', justifyContent: 'center' }}
-                        onClick={() => { navigate('/teacher/login'); setIsMenuOpen(false); }}
+                    <Link
+                        to="/teacher/login"
+                        onClick={() => setIsMenuOpen(false)}
+                        style={{
+                            padding: '1rem',
+                            color: 'var(--color-text)',
+                            textDecoration: 'none',
+                            fontWeight: '500',
+                            borderBottom: '1px solid rgba(0,0,0,0.05)'
+                        }}
                     >
-                        Teacher Login
-                    </button>
-                    <button
-                        className="btn btn-primary"
-                        style={{ width: '100%', justifyContent: 'center' }}
-                        onClick={() => { navigate('/student/login'); setIsMenuOpen(false); }}
+                        Teacher
+                    </Link>
+                    <Link
+                        to="/student/login"
+                        onClick={() => setIsMenuOpen(false)}
+                        style={{
+                            padding: '1rem',
+                            color: 'var(--color-text)',
+                            textDecoration: 'none',
+                            fontWeight: '500'
+                        }}
                     >
-                        Student Login
-                    </button>
+                        Student
+                    </Link>
                 </div>
             )}
         </nav>
