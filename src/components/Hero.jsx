@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import studentImage from '../assets/student-image-dark-skin.png';
+import studentImage from '../assets/student-hero.png';
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -19,20 +19,13 @@ const Hero = () => {
                     alt="Student with PenguinPrep"
                     style={{
                         width: '100%',
-                        maxWidth: '450px',
+                        maxWidth: '600px',
                         height: 'auto',
                         borderRadius: '24px',
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                         display: 'block',
-                        margin: '0 auto 2rem'
+                        margin: '0 auto'
                     }}
                 />
-                <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem', color: 'var(--color-dark)' }}>Did you know?</h3>
-                    <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '1rem' }}>
-                        Regardless of where you start, mastering even just one lesson on PenguinPrep builds the confidence you need to succeed.
-                    </p>
-                </div>
             </div>
 
             {/* Visual / Right Side */}
