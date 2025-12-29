@@ -10,6 +10,7 @@ import CreateQuiz from './pages/CreateQuiz';
 import StudentLogin from './pages/StudentLogin';
 import StudentDashboard from './pages/StudentDashboard';
 import TakeQuiz from './pages/TakeQuiz';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/student/login" element={<StudentLogin />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/take-quiz/:id" element={<TakeQuiz />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

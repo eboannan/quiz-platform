@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import penguinFull from '../assets/penguin_full.png';
 
 const Footer = () => {
@@ -21,17 +22,17 @@ const Footer = () => {
                         <div>
                             <h4 style={{ color: 'white', marginBottom: '1rem' }}>Platform</h4>
                             <ul style={{ listStyle: 'none' }}>
-                                {['Home', 'Features', 'Login'].map(i => (
-                                    <li key={i} style={{ marginBottom: '0.5rem' }}><a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>{i}</a></li>
-                                ))}
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/" style={{ color: '#94a3b8', textDecoration: 'none' }}>Home</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><a href="#features" style={{ color: '#94a3b8', textDecoration: 'none' }}>Features</a></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/student/login" style={{ color: '#94a3b8', textDecoration: 'none' }}>Login</Link></li>
                             </ul>
                         </div>
                         <div>
                             <h4 style={{ color: 'white', marginBottom: '1rem' }}>Legal</h4>
                             <ul style={{ listStyle: 'none' }}>
-                                {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(i => (
-                                    <li key={i} style={{ marginBottom: '0.5rem' }}><a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>{i}</a></li>
-                                ))}
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/privacy-policy" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy Policy</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms of Service</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Cookie Policy</Link></li>
                             </ul>
                         </div>
                     </div>
