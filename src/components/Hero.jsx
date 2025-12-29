@@ -58,8 +58,7 @@ const Hero = () => {
                     borderRadius: '24px',
                     boxShadow: 'var(--shadow-lg)',
                     padding: 'clamp(1.5rem, 5vw, 2.5rem)',
-                    border: '1px solid rgba(0,0,0,0.05)',
-                    transform: 'rotate(-1deg)'
+                    border: '1px solid rgba(0,0,0,0.05)'
                 }}>
                     {/* Role Switcher */}
                     <div style={{
@@ -105,83 +104,69 @@ const Hero = () => {
                     <div style={{ marginBottom: '1.5rem' }}>
                         <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '1.5rem' }}>Log in now!</h2>
 
-                        {/* Social Logins */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                            <button style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                border: '1px solid #e2e8f0',
-                                borderRadius: '8px',
-                                backgroundColor: 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '10px',
-                                cursor: 'pointer',
-                                fontWeight: '500'
-                            }}>
-                                <span style={{ color: '#4285F4', fontWeight: '900', fontSize: '1.2rem' }}>G</span> Continue with Google
-                            </button>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
-                                {['C', 'f', '', '田'].map((icon, i) => (
-                                    <button key={i} style={{
-                                        padding: '0.75rem',
-                                        border: '1px solid #e2e8f0',
-                                        borderRadius: '8px',
-                                        backgroundColor: 'white',
-                                        fontSize: '1.2rem',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}>{icon}</button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', color: '#64748b', fontSize: '0.85rem' }}>
-                            <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
-                            Or log in with email
-                            <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
-                        </div>
-
                         {/* Form Fields */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                            <div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Email or username</label>
-                                    <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                            {loginRole === 'student' ? (
+                                <div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                        <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Access Code</label>
+                                        <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Access Code"
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.85rem',
+                                            borderRadius: '8px',
+                                            border: '1px solid #e2e8f0',
+                                            fontSize: '1rem',
+                                            textAlign: 'center',
+                                            letterSpacing: '2px',
+                                            fontWeight: '600'
+                                        }}
+                                    />
+                                    <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>Enter the code your teacher gave you.</p>
                                 </div>
-                                <input
-                                    type="text"
-                                    placeholder="email@example.com"
-                                    style={{
-                                        width: '100%',
-                                        padding: '0.85rem',
-                                        borderRadius: '8px',
-                                        border: '1px solid #e2e8f0',
-                                        fontSize: '1rem'
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Password</label>
-                                    <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
-                                </div>
-                                <input
-                                    type="password"
-                                    placeholder="••••••••••••"
-                                    style={{
-                                        width: '100%',
-                                        padding: '0.85rem',
-                                        borderRadius: '8px',
-                                        border: '1px solid #e2e8f0',
-                                        fontSize: '1rem'
-                                    }}
-                                />
-                                <a href="#" style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '500' }}>Forgot password?</a>
-                            </div>
+                            ) : (
+                                <>
+                                    <div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                            <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Email Address</label>
+                                            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                        </div>
+                                        <input
+                                            type="email"
+                                            placeholder="email@example.com"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.85rem',
+                                                borderRadius: '8px',
+                                                border: '1px solid #e2e8f0',
+                                                fontSize: '1rem'
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                            <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Secret Password</label>
+                                            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                        </div>
+                                        <input
+                                            type="password"
+                                            placeholder="••••••••••••"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.85rem',
+                                                borderRadius: '8px',
+                                                border: '1px solid #e2e8f0',
+                                                fontSize: '1rem'
+                                            }}
+                                        />
+                                        <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: '500' }}>Forgot password? Get hint</span>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <button
@@ -200,16 +185,16 @@ const Hero = () => {
                                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                             }}
                         >
-                            Log in as {loginRole.charAt(0).toUpperCase() + loginRole.slice(1)}
+                            {loginRole === 'student' ? 'Start Learning' : 'Sign In'}
                         </button>
 
-                        <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
+                        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
                             By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
                         </div>
 
                         <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
                             Need a PenguinPrep account? <span
-                                onClick={() => navigate('/student/login')}
+                                onClick={() => navigate(loginRole === 'student' ? '/student/login' : '/teacher/login')}
                                 style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
                             >Sign up today</span>
                         </div>
