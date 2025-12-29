@@ -11,8 +11,7 @@ const Navbar = () => {
             position: 'sticky',
             top: 0,
             zIndex: 50,
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            backdropFilter: 'blur(10px)',
+            backgroundColor: '#ffffff',
             borderBottom: '1px solid rgba(0,0,0,0.05)'
         }}>
             <div className="container" style={{
@@ -35,12 +34,6 @@ const Navbar = () => {
 
                 {/* Desktop Menu */}
                 <div className="hidden-mobile" style={{ gap: '2rem', alignItems: 'center' }}>
-                    <a href="#features" style={{
-                        color: 'var(--color-text)',
-                        textDecoration: 'none',
-                        fontWeight: '500',
-                        fontSize: '0.95rem'
-                    }}>Features</a>
 
                     <div style={{ display: 'flex', gap: '1rem' }}>
                         <button className="btn btn-secondary" onClick={() => navigate('/teacher/login')}>
@@ -75,16 +68,6 @@ const Navbar = () => {
                     borderBottom: '1px solid #e2e8f0',
                     gap: '1rem'
                 }}>
-                    <a
-                        href="#features"
-                        onClick={() => setIsMenuOpen(false)}
-                        style={{
-                            padding: '1rem',
-                            color: 'var(--color-text)',
-                            textDecoration: 'none',
-                            fontWeight: '500'
-                        }}
-                    >Features</a>
                     <button
                         className="btn btn-secondary"
                         style={{ width: '100%', justifyContent: 'center' }}
