@@ -1,4 +1,4 @@
-import studentImage from '../assets/student-image-final.png';
+import studentImage from '../assets/student-image-dark-skin.png';
 
 const Hero = () => {
     return (
