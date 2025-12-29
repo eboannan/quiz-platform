@@ -23,7 +23,8 @@ const Hero = () => {
                         height: 'auto',
                         borderRadius: '24px',
                         display: 'block',
-                        margin: '0 auto'
+                        margin: '0 auto',
+                        mixBlendMode: 'multiply'
                     }}
                 />
             </div>
@@ -35,16 +36,14 @@ const Hero = () => {
                 marginTop: '1rem' // Added back for mobile stacking
             }}>
                 <div style={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--color-bg)',
                     borderRadius: '24px',
-                    boxShadow: 'var(--shadow-lg)',
-                    padding: 'clamp(1.5rem, 5vw, 2.5rem)',
-                    border: '1px solid rgba(0,0,0,0.05)'
+                    padding: 'clamp(1.5rem, 5vw, 2.5rem)'
                 }}>
                     {/* Role Switcher */}
                     <div style={{
                         display: 'flex',
-                        backgroundColor: '#f1f5f9',
+                        backgroundColor: 'rgba(0,0,0,0.05)',
                         padding: '4px',
                         borderRadius: '12px',
                         marginBottom: '1.5rem'
