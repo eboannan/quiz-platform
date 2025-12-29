@@ -11,14 +11,13 @@ const Navbar = () => {
             position: 'sticky',
             top: 0,
             zIndex: 50,
-            backgroundColor: '#ffffff',
-            borderBottom: '1px solid rgba(0,0,0,0.05)'
+            backgroundColor: 'var(--color-bg)'
         }}>
             <div className="container" style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                height: '200px'
+                height: '100px'
             }}>
                 {/* Logo */}
                 <div
@@ -28,7 +27,7 @@ const Navbar = () => {
                     <img
                         src={penguinFull}
                         alt="PenguinPrep"
-                        style={{ height: '180px', width: 'auto', objectFit: 'contain' }}
+                        style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
                     />
                 </div>
 
