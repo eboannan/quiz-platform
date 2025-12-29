@@ -12,6 +12,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import TakeQuiz from './pages/TakeQuiz';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import CookiesPolicy from './pages/CookiesPolicy';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/student/take-quiz/:id" element={<TakeQuiz />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookies-policy" element={<CookiesPolicy />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
