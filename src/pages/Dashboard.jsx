@@ -59,7 +59,7 @@ const Dashboard = () => {
 
     const addStudent = async (e) => {
         e.preventDefault();
-        if (!newStudent.firstName || !newStudent.accessCode) return;
+        if (!newStudent.firstName || !newStudent.username || !newStudent.password) return;
 
         try {
             const response = await studentAPI.create({
@@ -67,7 +67,7 @@ const Dashboard = () => {
                 teacherId: user.id
             });
             setStudents([...students, response.data]);
-            setNewStudent({ firstName: '', lastName: '', age: '', grade: '', accessCode: '' });
+            setNewStudent({ firstName: '', lastName: '', username: '', password: '', age: '', grade: '', accessCode: '' });
             setShowStudentForm(false);
         } catch (error) {
             alert(error.response?.data?.error || 'Failed to add student');
@@ -103,7 +103,7 @@ const Dashboard = () => {
     const [showSimulationSelect, setShowSimulationSelect] = useState(false);
     const [selectedStudentForProgress, setSelectedStudentForProgress] = useState(null);
     const [newStudent, setNewStudent] = useState({
-        firstName: '', lastName: '', age: '', grade: '', accessCode: ''
+        firstName: '', lastName: '', username: '', password: '', age: '', grade: '', accessCode: ''
     });
 
     // Sidebar Content Helper
@@ -235,9 +235,11 @@ const Dashboard = () => {
                     <form onSubmit={addStudent} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                         <input placeholder="First Name" value={newStudent.firstName} onChange={e => setNewStudent({ ...newStudent, firstName: e.target.value })} required style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
                         <input placeholder="Last Name" value={newStudent.lastName} onChange={e => setNewStudent({ ...newStudent, lastName: e.target.value })} style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
+                        <input placeholder="Username (REQUIRED)" value={newStudent.username} onChange={e => setNewStudent({ ...newStudent, username: e.target.value })} required style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
+                        <input placeholder="Password (REQUIRED)" type="password" value={newStudent.password} onChange={e => setNewStudent({ ...newStudent, password: e.target.value })} required style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
                         <input placeholder="Age" type="number" value={newStudent.age} onChange={e => setNewStudent({ ...newStudent, age: e.target.value })} style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
                         <input placeholder="Grade Level" value={newStudent.grade} onChange={e => setNewStudent({ ...newStudent, grade: e.target.value })} style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1' }} />
-                        <input placeholder="Access Code" value={newStudent.accessCode} onChange={e => setNewStudent({ ...newStudent, accessCode: e.target.value })} required style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1', gridColumn: '1 / -1' }} />
+                        <input placeholder="Access Code (Optional)" value={newStudent.accessCode} onChange={e => setNewStudent({ ...newStudent, accessCode: e.target.value })} style={{ padding: '0.8rem', borderRadius: '10px', border: '1px solid #cbd5e1', gridColumn: '1 / -1' }} />
                         <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
                             <button type="button" onClick={() => setShowStudentForm(false)} style={{ background: 'none', fontWeight: '600' }}>Cancel</button>
                             <button className="btn btn-primary" type="submit">Save Profile</button>
@@ -252,7 +254,7 @@ const Dashboard = () => {
                         <tr>
                             <th style={{ padding: '1.25rem', textAlign: 'left' }}>Student</th>
                             <th style={{ padding: '1.25rem', textAlign: 'left' }}>Grade</th>
-                            <th style={{ padding: '1.25rem', textAlign: 'left' }}>Access Code</th>
+                            <th style={{ padding: '1.25rem', textAlign: 'left' }}>Username</th>
                             <th style={{ padding: '1.25rem', textAlign: 'center' }}>Progress</th>
                             <th style={{ padding: '1.25rem', textAlign: 'right' }}>Action</th>
                         </tr>
@@ -268,7 +270,7 @@ const Dashboard = () => {
                                         <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Age: {s.age}</div>
                                     </td>
                                     <td style={{ padding: '1.25rem' }}>{s.grade}</td>
-                                    <td style={{ padding: '1.25rem' }}><code style={{ backgroundColor: '#f1f5f9', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem' }}>{s.accessCode}</code></td>
+                                    <td style={{ padding: '1.25rem' }}><code style={{ backgroundColor: '#f1f5f9', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem' }}>{s.username}</code></td>
                                     <td style={{ padding: '1.25rem', textAlign: 'center' }}>
                                         <button onClick={() => setSelectedStudentForProgress(s)} style={{ color: 'var(--color-primary)', fontWeight: '700', textDecoration: 'underline', background: 'none' }}>Report</button>
                                     </td>

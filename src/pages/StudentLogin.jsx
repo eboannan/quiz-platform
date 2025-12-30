@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../api';
 
 const StudentLogin = () => {
-    const [accessCode, setAccessCode] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -14,13 +15,13 @@ const StudentLogin = () => {
         setIsLoading(true);
 
         try {
-            const response = await authAPI.studentLogin(accessCode);
+            const response = await authAPI.studentLogin({ username, password });
             // Save student session
             localStorage.setItem('studentAuth', JSON.stringify(response.data));
             localStorage.removeItem('simulationMode'); // Clear in case it was set
             navigate('/student/dashboard');
         } catch (err) {
-            setError(err.response?.data?.error || 'Invalid Access Code. Please ask your teacher.');
+            setError(err.response?.data?.error || 'Invalid Username or Password. Please ask your teacher.');
         } finally {
             setIsLoading(false);
         }
@@ -32,7 +33,7 @@ const StudentLogin = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#f8fafc'
+            backgroundColor: 'var(--color-bg)'
         }}>
             <div style={{
                 backgroundColor: 'white',
@@ -51,7 +52,7 @@ const StudentLogin = () => {
                     width: '64px',
                     height: '64px',
                     borderRadius: '50%',
-                    backgroundColor: '#e0e7ff',
+                    backgroundColor: '#f8fafc',
                     color: 'var(--color-primary)',
                     fontSize: '2rem'
                 }}>
@@ -59,29 +60,44 @@ const StudentLogin = () => {
                 </div>
 
                 <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Student Login</h2>
-                <p style={{ color: 'var(--color-text)', marginBottom: '2rem' }}>Enter the code your teacher gave you.</p>
+                <p style={{ color: 'var(--color-text)', marginBottom: '2rem' }}>Enter the credentials your teacher gave you.</p>
 
                 <form onSubmit={handleLogin}>
-                    <div style={{ marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
                         <input
                             type="text"
-                            value={accessCode}
+                            value={username}
                             onChange={(e) => {
-                                setAccessCode(e.target.value);
+                                setUsername(e.target.value);
                                 setError('');
                             }}
-                            placeholder="Enter Access Code"
+                            placeholder="Username"
                             required
                             style={{
                                 width: '100%',
                                 padding: '1rem',
                                 borderRadius: '12px',
                                 border: error ? '2px solid #ef4444' : '1px solid #e2e8f0',
-                                fontSize: '1.1rem',
-                                outline: 'none',
-                                textAlign: 'center',
-                                letterSpacing: '2px',
-                                fontWeight: '600'
+                                fontSize: '1rem',
+                                outline: 'none'
+                            }}
+                        />
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError('');
+                            }}
+                            placeholder="Password"
+                            required
+                            style={{
+                                width: '100%',
+                                padding: '1rem',
+                                borderRadius: '12px',
+                                border: error ? '2px solid #ef4444' : '1px solid #e2e8f0',
+                                fontSize: '1rem',
+                                outline: 'none'
                             }}
                         />
                         {error && <p style={{ color: '#ef4444', marginTop: '0.5rem', fontSize: '0.9rem' }}>{error}</p>}

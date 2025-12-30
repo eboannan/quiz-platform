@@ -69,12 +69,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Student Login (Access Code)
+// Student Login (Username/Password)
 router.post('/student-login', async (req, res) => {
     try {
-        const { accessCode } = req.body;
+        const { username, password } = req.body;
         const student = await prisma.student.findUnique({
-            where: { accessCode },
+            where: { username },
             include: {
                 attempts: true,
                 assignments: {
@@ -87,9 +87,14 @@ router.post('/student-login', async (req, res) => {
             }
         });
 
-        if (!student) return res.status(400).json({ error: 'Invalid access code' });
+        if (!student) return res.status(400).json({ error: 'Invalid username or password' });
 
-        res.json(student);
+        const match = await bcrypt.compare(password, student.password);
+        if (!match) return res.status(400).json({ error: 'Invalid username or password' });
+
+        // Remove password before sending
+        const { password: _, ...studentData } = student;
+        res.json(studentData);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });

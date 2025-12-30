@@ -40,7 +40,7 @@ api.interceptors.request.use(
 export const authAPI = {
     login: (credentials) => api.post('auth/login', credentials),
     register: (userData) => api.post('auth/register', userData),
-    studentLogin: (accessCode) => api.post('auth/student-login', { accessCode }),
+    studentLogin: (credentials) => api.post('auth/student-login', credentials),
     getHint: (email) => api.get(`auth/hint/${email}`)
 };
 

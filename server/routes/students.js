@@ -9,12 +9,28 @@ const auth = (req, res, next) => {
     next();
 };
 
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+
 // Create Student
 router.post('/', async (req, res) => {
     try {
-        const { firstName, lastName, age, grade, accessCode, teacherId } = req.body;
+        const { firstName, lastName, username, password, age, grade, accessCode, teacherId } = req.body;
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
         const student = await prisma.student.create({
-            data: { firstName, lastName, age: parseInt(age), grade, accessCode, teacherId }
+            data: {
+                firstName,
+                lastName,
+                username,
+                password: hashedPassword,
+                age: parseInt(age),
+                grade,
+                accessCode,
+                teacherId
+            }
         });
         res.json(student);
     } catch (e) {

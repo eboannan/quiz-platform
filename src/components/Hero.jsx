@@ -82,27 +82,43 @@ const Hero = () => {
                         {/* Form Fields */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                             {loginRole === 'student' ? (
-                                <div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                        <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Access Code</label>
-                                        <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                <>
+                                    <div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                            <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Username</label>
+                                            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            placeholder="Your username"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.85rem',
+                                                borderRadius: '8px',
+                                                border: '1px solid #e2e8f0',
+                                                fontSize: '1rem'
+                                            }}
+                                        />
                                     </div>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Access Code"
-                                        style={{
-                                            width: '100%',
-                                            padding: '0.85rem',
-                                            borderRadius: '8px',
-                                            border: '1px solid #e2e8f0',
-                                            fontSize: '1rem',
-                                            textAlign: 'center',
-                                            letterSpacing: '2px',
-                                            fontWeight: '600'
-                                        }}
-                                    />
-                                    <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>Enter the code your teacher gave you.</p>
-                                </div>
+                                    <div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                            <label style={{ fontSize: '0.9rem', fontWeight: '600' }}>Password</label>
+                                            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>required</span>
+                                        </div>
+                                        <input
+                                            type="password"
+                                            placeholder="••••••••••••"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.85rem',
+                                                borderRadius: '8px',
+                                                border: '1px solid #e2e8f0',
+                                                fontSize: '1rem'
+                                            }}
+                                        />
+                                        <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>Use the credentials from your teacher.</p>
+                                    </div>
+                                </>
                             ) : (
                                 <>
                                     <div>
