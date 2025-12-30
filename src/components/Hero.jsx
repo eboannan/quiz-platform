@@ -24,8 +24,8 @@ const Hero = () => {
                         display: 'block',
                         margin: '0 auto',
                         mixBlendMode: 'multiply',
-                        maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
-                        WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
+                        maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 85%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 85%)'
                     }}
                 />
             </div>
