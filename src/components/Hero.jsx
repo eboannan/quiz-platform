@@ -21,10 +21,11 @@ const Hero = () => {
                         width: '100%',
                         maxWidth: '600px',
                         height: 'auto',
-                        borderRadius: '24px',
                         display: 'block',
                         margin: '0 auto',
-                        mixBlendMode: 'multiply'
+                        mixBlendMode: 'multiply',
+                        maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
                     }}
                 />
             </div>
