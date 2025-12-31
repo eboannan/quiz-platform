@@ -31,7 +31,7 @@ model Student {
   password   String
   age        Int?
   grade      String?
-  accessCode String?  @unique // Keep for legacy/optional use
+  accessCode String? // Keep for legacy/optional use
   teacherId  String
   createdAt  DateTime @default(now())
 
