@@ -186,7 +186,7 @@ const Hero = () => {
 
                         <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
                             Need a PenguinPrep account? <span
-                                onClick={() => navigate(loginRole === 'student' ? '/student/login' : '/teacher/login')}
+                                onClick={() => navigate('/teacher/login')}
                                 style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
                             >Sign up today</span>
                         </div>
