@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../api';
 import studentImage from '../assets/student-hero-final-v2.png';
 
 const Hero = () => {
     const navigate = useNavigate();
-    const [loginRole, setLoginRole] = useState('student');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleLogin = async () => {
+        if (!username || !password) {
+            setError('Please enter both username and password.');
+            return;
+        }
+        setError('');
+        setIsLoading(true);
+        try {
+            const response = await authAPI.studentLogin({ username, password });
+            localStorage.setItem('studentAuth', JSON.stringify(response.data));
+            localStorage.removeItem('simulationMode');
+            navigate('/student/dashboard');
+        } catch (err) {
+            setError(err.response?.data?.error || 'Invalid credentials.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <section className="container grid-cols-2" style={{
@@ -54,6 +77,8 @@ const Hero = () => {
                                 </div>
                                 <input
                                     type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                     placeholder="Your username"
                                     style={{
                                         width: '100%',
@@ -71,6 +96,8 @@ const Hero = () => {
                                 </div>
                                 <input
                                     type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••••••"
                                     style={{
                                         width: '100%',
@@ -80,12 +107,17 @@ const Hero = () => {
                                         fontSize: '1rem'
                                     }}
                                 />
-                                <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>Use the credentials from your teacher.</p>
+                                {error ? (
+                                    <p style={{ color: '#ef4444', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: 'bold' }}>{error}</p>
+                                ) : (
+                                    <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>Use the credentials from your teacher.</p>
+                                )}
                             </div>
                         </div>
 
                         <button
-                            onClick={() => navigate('/student/login')}
+                            onClick={handleLogin}
+                            disabled={isLoading}
                             style={{
                                 width: '100%',
                                 padding: '1rem',
@@ -97,10 +129,11 @@ const Hero = () => {
                                 fontSize: '1rem',
                                 marginTop: '2rem',
                                 cursor: 'pointer',
-                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                opacity: isLoading ? 0.7 : 1
                             }}
                         >
-                            Start Learning
+                            {isLoading ? 'Logging in...' : 'Start Learning'}
                         </button>
 
                         <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
