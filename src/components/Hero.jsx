@@ -148,35 +148,38 @@ const Hero = () => {
                             )}
                         </div>
 
-                        width: '100%',
-                        padding: '1rem',
-                        backgroundColor: 'var(--color-primary)',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontWeight: '700',
-                        fontSize: '1rem',
-                        marginTop: '2rem',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                        <button
+                            onClick={() => navigate(loginRole === 'student' ? '/student/login' : '/parent/login')}
+                            style={{
+                                width: '100%',
+                                padding: '1rem',
+                                backgroundColor: 'var(--color-primary)',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '8px',
+                                fontWeight: '700',
+                                fontSize: '1rem',
+                                marginTop: '2rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                             }}
                         >
-                        {loginRole === 'student' ? 'Start Learning' : 'Sign In'}
-                    </button>
+                            {loginRole === 'student' ? 'Start Learning' : 'Sign In'}
+                        </button>
 
-                    <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
-                        By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
-                    </div>
+                        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
+                            By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
+                        </div>
 
-                    <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
-                        Need a PenguinPrep account? <span
-                            onClick={() => navigate('/teacher/login')}
-                            style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
-                        >Sign up today</span>
+                        <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
+                            Need a PenguinPrep account? <span
+                                onClick={() => navigate('/teacher/login')}
+                                style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
+                            >Sign up today</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </section >
     );
 };
