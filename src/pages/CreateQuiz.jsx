@@ -58,6 +58,25 @@ const CreateQuiz = () => {
         setQuestions(newQuestions);
     };
 
+    const handleImageUpload = (qIndex, e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Limit size to 2MB to prevent heavy payloads
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Image must be less than 2MB');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const newQuestions = [...questions];
+            newQuestions[qIndex].image = reader.result; // Store Base64
+            setQuestions(newQuestions);
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleSave = async () => {
         if (!quizTitle) return alert('Please enter a quiz title');
         setIsLoading(true);
@@ -136,8 +155,49 @@ const CreateQuiz = () => {
                                 value={q.text}
                                 onChange={(e) => updateQuestion(qIndex, 'text', e.target.value)}
                                 placeholder="Enter question text..."
-                                style={{ width: '100%', padding: '0.75rem', marginBottom: '1.5rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                                style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
                             />
+
+                            {/* Image Upload */}
+                            <div style={{ marginBottom: '1.5rem' }}>
+                                <label style={{ fontSize: '0.9rem', fontWeight: '600', display: 'block', marginBottom: '0.5rem' }}>
+                                    Question Image (Optional)
+                                </label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => handleImageUpload(qIndex, e)}
+                                    style={{ fontSize: '0.9rem' }}
+                                />
+                                {q.image && (
+                                    <div style={{ marginTop: '0.5rem', position: 'relative', display: 'inline-block' }}>
+                                        <img
+                                            src={q.image}
+                                            alt="Question Preview"
+                                            style={{ maxHeight: '150px', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                                        />
+                                        <button
+                                            onClick={() => updateQuestion(qIndex, 'image', null)}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '-5px',
+                                                right: '-5px',
+                                                background: '#ef4444',
+                                                color: 'white',
+                                                borderRadius: '50%',
+                                                width: '20px',
+                                                height: '20px',
+                                                fontSize: '0.8rem',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
                                 {q.options.map((opt, oIndex) => (
