@@ -89,7 +89,15 @@ router.post('/student-login', async (req, res) => {
 
         if (!student) return res.status(400).json({ error: 'Invalid username or password' });
 
-        const match = await bcrypt.compare(password, student.password);
+        let match = false;
+        // Check if password suggests it is hashed (bcrypt starts with $2b$, $2a$, or $2y$)
+        if (student.password.startsWith('$2') && student.password.length === 60) {
+            match = await bcrypt.compare(password, student.password);
+        } else {
+            // Plain text comparison
+            match = (password === student.password);
+        }
+
         if (!match) return res.status(400).json({ error: 'Invalid username or password' });
 
         // Remove password before sending

@@ -18,25 +18,19 @@ router.post('/', async (req, res) => {
         const { firstName, lastName, username, password, age, grade, accessCode, teacherId } = req.body;
 
         // Hash password
-        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
-        const student = await prisma.student.create({
-            data: {
-                firstName,
-                lastName,
-                username,
-                password: hashedPassword,
-                age: parseInt(age),
+        username,
+            password, // Store plain text so parents can see it
+            age: parseInt(age),
                 grade,
                 accessCode,
                 teacherId
-            }
-        });
-        res.json(student);
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ error: e.message });
     }
+        });
+res.json(student);
+    } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: e.message });
+}
 });
 
 // Get Students for a Teacher
