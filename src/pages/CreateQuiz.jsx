@@ -69,7 +69,7 @@ const CreateQuiz = () => {
                 questions: questions
             });
             alert('Quiz Saved Successfully!');
-            navigate('/teacher/dashboard');
+            navigate('/parent/dashboard');
         } catch (error) {
             console.error('Error saving quiz:', error);
             alert('Failed to save quiz to server.');
@@ -84,7 +84,7 @@ const CreateQuiz = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <h1 style={{ fontSize: '2rem', fontWeight: '800' }}>{id ? 'Edit Quiz' : 'Create New Quiz'}</h1>
                     <button
-                        onClick={() => navigate('/teacher/dashboard')}
+                        onClick={() => navigate('/parent/dashboard')}
                         style={{
                             background: 'transparent',
                             border: 'none',
