@@ -30,8 +30,11 @@ const StudentDashboard = () => {
             const response = await studentAPI.getProfile(id);
             setStudent(response.data);
 
-            // Extract quizzes from assignments
-            const assignedQuizzes = response.data.assignments.map(a => a.quiz);
+            // Extract quizzes from assignments and sort by most recent assignment
+            const sortedAssignments = response.data.assignments.sort((a, b) =>
+                new Date(b.assignedAt) - new Date(a.assignedAt)
+            );
+            const assignedQuizzes = sortedAssignments.map(a => a.quiz);
             setQuizzes(assignedQuizzes);
         } catch (error) {
             console.error('Error fetching student profile:', error);
@@ -65,7 +68,7 @@ const StudentDashboard = () => {
             )}
 
             <nav style={{ backgroundColor: 'white', padding: '1rem clamp(1rem, 5vw, 2rem)', boxShadow: 'var(--shadow-sm)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: '800' }}>Quiz<span style={{ color: 'var(--color-primary)' }}>Master</span></h2>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: '800' }}>Penguin<span style={{ color: 'var(--color-primary)' }}>Prep</span></h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <span style={{ fontWeight: '600', fontSize: '0.9rem' }} className="hidden-mobile">👋 Hi, {student.firstName}</span>
                     <button
