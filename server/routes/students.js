@@ -17,20 +17,23 @@ router.post('/', async (req, res) => {
     try {
         const { firstName, lastName, username, password, age, grade, accessCode, teacherId } = req.body;
 
-        // Hash password
-        username,
-            password, // Store plain text so parents can see it
-            age: parseInt(age),
+        const student = await prisma.student.create({
+            data: {
+                firstName,
+                lastName,
+                username,
+                password, // Store plain text so parents can see it
+                age: parseInt(age),
                 grade,
                 accessCode,
                 teacherId
-    }
+            }
         });
-res.json(student);
+        res.json(student);
     } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: e.message });
-}
+        console.error(e);
+        res.status(500).json({ error: e.message });
+    }
 });
 
 // Get Students for a Teacher
