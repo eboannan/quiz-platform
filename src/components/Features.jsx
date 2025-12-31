@@ -46,7 +46,7 @@ const Features = () => {
                                 whiteSpace: 'nowrap'
                             }}
                         >
-                            For Teachers
+                            For Parents
                         </button>
                     </div>
                 </div>

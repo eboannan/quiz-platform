@@ -56,19 +56,6 @@ const Hero = () => {
                                 cursor: 'pointer',
                                 opacity: loginRole === 'student' ? 1 : 0.6,
                                 transition: 'all 0.2s',
-                                borderBottom: loginRole === 'student' ? '2px solid var(--color-dark)' : 'none',
-                                paddingBottom: '0.25rem'
-                            }}
-                        >Student</div>
-                        <div
-                            onClick={() => setLoginRole('teacher')}
-                            style={{
-                                color: 'var(--color-text)',
-                                textDecoration: 'none',
-                                fontSize: '1rem',
-                                fontWeight: loginRole === 'teacher' ? '700' : '400',
-                                cursor: 'pointer',
-                                opacity: loginRole === 'teacher' ? 1 : 0.6,
                                 transition: 'all 0.2s',
                                 borderBottom: loginRole === 'teacher' ? '2px solid var(--color-dark)' : 'none',
                                 paddingBottom: '0.25rem'
@@ -161,39 +148,36 @@ const Hero = () => {
                             )}
                         </div>
 
-                        <button
-                            onClick={() => navigate(loginRole === 'student' ? '/student/login' : '/teacher/login')}
-                            style={{
-                                width: '100%',
-                                padding: '1rem',
-                                backgroundColor: 'var(--color-primary)',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '8px',
-                                fontWeight: '700',
-                                fontSize: '1rem',
-                                marginTop: '2rem',
-                                cursor: 'pointer',
-                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                        width: '100%',
+                        padding: '1rem',
+                        backgroundColor: 'var(--color-primary)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontWeight: '700',
+                        fontSize: '1rem',
+                        marginTop: '2rem',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                             }}
                         >
-                            {loginRole === 'student' ? 'Start Learning' : 'Sign In'}
-                        </button>
+                        {loginRole === 'student' ? 'Start Learning' : 'Sign In'}
+                    </button>
 
-                        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
-                            By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
-                        </div>
+                    <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#64748b', lineHeight: '1.4' }}>
+                        By logging in, you agree to the <span onClick={() => navigate('/terms-of-service')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>PenguinPrep Terms of Service</span> and <span onClick={() => navigate('/privacy-policy')} style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Privacy Policy</span>.
+                    </div>
 
-                        <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
-                            Need a PenguinPrep account? <span
-                                onClick={() => navigate('/teacher/login')}
-                                style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
-                            >Sign up today</span>
-                        </div>
+                    <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-dark)' }}>
+                        Need a PenguinPrep account? <span
+                            onClick={() => navigate('/teacher/login')}
+                            style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: '700', cursor: 'pointer' }}
+                        >Sign up today</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        </section >
     );
 };
 

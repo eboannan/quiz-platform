@@ -30,7 +30,7 @@ const Login = () => {
         }
 
         if (result.success) {
-            navigate('/teacher/dashboard');
+            navigate('/parent/dashboard');
         } else {
             setError(result.message);
         }
@@ -86,12 +86,6 @@ const Login = () => {
                     🔒
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '0.5rem', fontWeight: '800' }}>
-                    {isRegister ? 'New Teacher' : 'Welcome Back'}
-                </h2>
-                <p style={{ color: 'var(--color-text)', marginBottom: '2rem', fontSize: '0.95rem' }}>
-                    {isRegister ? 'Join hundreds of teachers today.' : 'Manage your students and quizzes.'}
-                </p>
 
                 <form onSubmit={handleSubmit}>
                     {isRegister && (

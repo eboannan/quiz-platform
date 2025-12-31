@@ -110,7 +110,7 @@ const Dashboard = () => {
     const SidebarContent = () => (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <h2 style={{ fontFamily: 'var(--font-heading)', marginBottom: '3rem', fontSize: '1.5rem' }}>
-                Teacher<span style={{ color: '#94a3b8' }}>Panel</span>
+                Parent<span style={{ color: '#94a3b8' }}>Panel</span>
             </h2>
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {['Overview', 'Quizzes', 'Students', 'Settings'].map(item => (
@@ -160,7 +160,6 @@ const Dashboard = () => {
             <div style={{ backgroundColor: 'white', padding: 'clamp(1.5rem, 5vw, 2rem)', borderRadius: '24px', boxShadow: 'var(--shadow-sm)', border: '1px solid #f1f5f9' }}>
                 <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-text)', fontSize: '1.1rem' }}>Quick Actions</h3>
                 <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                    <button className="btn btn-primary" onClick={() => navigate('/teacher/create-quiz')}>Create New Quiz</button>
                     <button className="btn btn-secondary" onClick={() => { setActiveTab('Students'); setShowStudentForm(true); }}>Add Student</button>
                     <button className="btn btn-accent" style={{ border: '1px solid #cbd5e1' }} onClick={() => setShowSimulationSelect(true)}>Student View</button>
                 </div>

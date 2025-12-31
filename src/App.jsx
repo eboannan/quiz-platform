@@ -20,7 +20,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/teacher/login" element={<Login />} />
           <Route
             path="/teacher/dashboard"
             element={
