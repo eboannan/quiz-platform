@@ -12,13 +12,27 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Check local storage on mount
-        const storedToken = localStorage.getItem('token');
-        const storedUser = localStorage.getItem('user');
-        if (storedToken && storedUser) {
-            setIsAuthenticated(true);
-            setUser(JSON.parse(storedUser));
-        }
-        setLoading(false);
+        const initAuth = async () => {
+            try {
+                const storedToken = localStorage.getItem('token');
+                const storedUser = localStorage.getItem('user');
+                if (storedToken && storedUser) {
+                    // Start of parsing logic
+                    const parsedUser = JSON.parse(storedUser);
+                    setUser(parsedUser);
+                    setIsAuthenticated(true);
+                }
+            } catch (error) {
+                console.error("Failed to restore auth state:", error);
+                // Clear potentially corrupted data
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initAuth();
     }, []);
 
     const login = async (email, password) => {
