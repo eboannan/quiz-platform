@@ -156,7 +156,6 @@ const Dashboard = () => {
     // Tab renders...
     const renderOverview = () => (
         <div className="animate-fade-in">
-            <h1 style={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>Welcome Back, {user?.name || 'Teacher'}</h1>
             <div style={{ backgroundColor: 'white', padding: 'clamp(1.5rem, 5vw, 2rem)', borderRadius: '24px', boxShadow: 'var(--shadow-sm)', border: '1px solid #f1f5f9' }}>
                 <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-text)', fontSize: '1.1rem' }}>Quick Actions</h3>
             </div>
