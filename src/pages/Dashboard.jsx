@@ -364,7 +364,7 @@ const Dashboard = () => {
                     `}</style>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
                         <h2 style={{ fontFamily: 'var(--font-heading)', margin: 0, fontSize: '1.5rem' }}>
-                            Teacher<span style={{ color: '#94a3b8' }}>Panel</span>
+                            Parent<span style={{ color: '#94a3b8' }}>Panel</span>
                         </h2>
                         <button className="show-mobile" onClick={() => setIsSidebarOpen(false)} style={{ background: 'none', color: 'white', fontSize: '1.5rem' }}>×</button>
                     </div>
@@ -428,7 +428,7 @@ const Dashboard = () => {
                             {activeTab === 'Overview' && renderOverview()}
                             {activeTab === 'Quizzes' && renderQuizzes()}
                             {activeTab === 'Students' && renderStudents()}
-                            {activeTab === 'Settings' && <div className="animate-fade-in"><h1>Settings</h1><p>Update your teacher profile and security settings.</p></div>}
+                            {activeTab === 'Settings' && <div className="animate-fade-in"><h1>Settings</h1><p>Update your parent profile and security settings.</p></div>}
                         </>
                     )}
                 </main>
