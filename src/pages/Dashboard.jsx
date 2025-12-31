@@ -154,12 +154,45 @@ const Dashboard = () => {
     );
 
     // Tab renders...
+    const renderOverview = () => (
+        <div className="animate-fade-in">
+            <h1 style={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>Welcome Back, {user?.name || 'Parent'}</h1>
+            <div style={{ backgroundColor: 'white', padding: 'clamp(1.5rem, 5vw, 2rem)', borderRadius: '24px', boxShadow: 'var(--shadow-sm)', border: '1px solid #f1f5f9' }}>
+                <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-text)', fontSize: '1.1rem' }}>Quick Actions</h3>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    <button className="btn btn-primary" onClick={() => navigate('/parent/create-quiz')}>Create New Quiz</button>
+                    <button className="btn btn-secondary" onClick={() => { setActiveTab('Students'); setShowStudentForm(true); }}>Add Student</button>
+                    <button className="btn btn-accent" style={{ border: '1px solid #cbd5e1' }} onClick={() => setShowSimulationSelect(true)}>Student View</button>
+                </div>
+            </div>
+
+            {/* Simulation Select Modal */}
+            {showSimulationSelect && (
+                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
+                    <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '24px', maxWidth: '500px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                            <h3 style={{ margin: 0 }}>Select Student</h3>
+                            <button onClick={() => setShowSimulationSelect(false)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                        </div>
+                        <div style={{ display: 'grid', gap: '0.75rem' }}>
+                            {students.map(s => (
+                                <button key={s.id} onClick={() => startSimulation(s)} style={{ padding: '1rem', textAlign: 'left', border: '1px solid #e2e8f0', borderRadius: '12px', backgroundColor: '#f8fafc', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontWeight: '600' }}>{s.firstName} {s.lastName}</span>
+                                    <span style={{ color: '#64748b', fontSize: '0.8rem', backgroundColor: '#e2e8f0', padding: '0.2rem 0.6rem', borderRadius: '8px' }}>{s.grade}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 
     const renderQuizzes = () => (
         <div className="animate-fade-in">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <h1 style={{ margin: 0, fontSize: '1.75rem' }}>My Quizzes</h1>
-                <button className="btn btn-primary" onClick={() => navigate('/teacher/create-quiz')}>+ New Quiz</button>
+                <button className="btn btn-primary" onClick={() => navigate('/parent/create-quiz')}>+ New Quiz</button>
             </div>
             <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(280px, 100%, 350px), 1fr))' }}>
                 {quizzes.length === 0 ? (
@@ -180,7 +213,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                <button onClick={() => navigate(`/teacher/edit-quiz/${quiz.id}`)} className="btn btn-secondary" style={{ padding: '0.6rem', fontSize: '0.85rem', flex: 1 }}>Edit</button>
+                                <button onClick={() => navigate(`/parent/edit-quiz/${quiz.id}`)} className="btn btn-secondary" style={{ padding: '0.6rem', fontSize: '0.85rem', flex: 1 }}>Edit</button>
                                 <button onClick={() => deleteQuiz(quiz.id)} style={{ padding: '0.6rem', fontSize: '0.85rem', flex: 1, backgroundColor: '#fee2e2', color: '#ef4444', borderRadius: '999px', fontWeight: '600' }}>Delete</button>
                             </div>
                         </div>
