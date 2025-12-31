@@ -56,9 +56,9 @@ model Question {
   text         String
   options      String // JSON string of options array: ["A", "B", "C"]
   correctIndex Int
-  tags         String? // JSON string or comma separated: "class:5,subject:math"
   quizId       String
-  
+  image        String? // Base64 or URL
+
   quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
 }
 
