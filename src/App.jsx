@@ -20,8 +20,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/parent/login" element={<Login />} />
           <Route
-            path="/teacher/dashboard"
+            path="/parent/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
@@ -29,7 +30,7 @@ function App() {
             }
           />
           <Route
-            path="/teacher/create-quiz"
+            path="/parent/create-quiz"
             element={
               <ProtectedRoute>
                 <CreateQuiz />
@@ -37,7 +38,7 @@ function App() {
             }
           />
           <Route
-            path="/teacher/edit-quiz/:id"
+            path="/parent/edit-quiz/:id"
             element={
               <ProtectedRoute>
                 <CreateQuiz />
