@@ -37,8 +37,12 @@ const Dashboard = () => {
     };
 
     const handleLogout = () => {
-        logout();
         navigate('/');
+        // Small delay to ensure navigation to public route '/' happens 
+        // before ProtectedRoute sees the auth state change and redirects to login
+        setTimeout(() => {
+            logout();
+        }, 100);
     };
 
     const startSimulation = (student) => {
