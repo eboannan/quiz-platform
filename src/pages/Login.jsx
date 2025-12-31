@@ -87,6 +87,13 @@ const Login = () => {
                 </div>
 
 
+                <h2 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>
+                    {isRegister ? 'New Parent' : 'Parent Login'}
+                </h2>
+                <p style={{ color: '#64748b', marginBottom: '2rem' }}>
+                    {isRegister ? 'Create an account to manage your students.' : 'Welcome back! Please enter your details.'}
+                </p>
+
                 <form onSubmit={handleSubmit}>
                     {isRegister && (
                         <div style={{ marginBottom: '1rem' }}>
@@ -196,7 +203,7 @@ const Login = () => {
                         }}
                         style={{ background: 'none', border: 'none', color: 'var(--color-primary)', fontWeight: '700', cursor: 'pointer' }}
                     >
-                        {isRegister ? 'Sign In' : 'Join as Teacher'}
+                        {isRegister ? 'Sign In' : 'Join as Parent'}
                     </button>
                 </p>
 
