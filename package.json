@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cd server && npm install && npx prisma generate && npx prisma db push --accept-data-loss",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
