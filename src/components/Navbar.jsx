@@ -14,7 +14,7 @@ const Navbar = () => {
         }}>
             <div className="container" style={{
                 display: 'flex',
-                justifyContent: 'center', // Center logo now that links are gone
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 height: '160px'
             }}>
@@ -29,6 +29,14 @@ const Navbar = () => {
                         style={{ height: '140px', width: 'auto', objectFit: 'contain' }}
                     />
                 </div>
+
+                <button
+                    onClick={() => navigate('/parent/login')}
+                    className="btn btn-secondary"
+                    style={{ padding: '0.75rem 1.5rem', borderRadius: '12px', fontWeight: '600' }}
+                >
+                    Parent Login
+                </button>
             </div>
         </nav>
     );
