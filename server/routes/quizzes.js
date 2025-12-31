@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
                         text: q.text,
                         options: JSON.stringify(q.options),
                         correctIndex: q.correct,
-                        tags: JSON.stringify(q.tags || {})
+                        image: q.image || null
                     }))
                 }
             },
