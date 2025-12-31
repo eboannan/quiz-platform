@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
                 password, // Store plain text so parents can see it
                 age: parseInt(age),
                 grade,
-                accessCode,
+                // accessCode - removed
                 teacherId
             }
         });
