@@ -171,6 +171,20 @@ const TakeQuiz = () => {
                             <span style={{ color: '#94a3b8', fontSize: '1.1rem' }}>{qIndex + 1}</span>
                             <span style={{ fontSize: 'clamp(1.1rem, 4vw, 1.3rem)', fontWeight: '600' }}>{q.text}</span>
                         </h3>
+                        {q.image && (
+                            <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+                                <img
+                                    src={q.image}
+                                    alt="Question Illustration"
+                                    style={{
+                                        maxWidth: '100%',
+                                        maxHeight: '300px',
+                                        borderRadius: '16px',
+                                        border: '1px solid #f1f5f9'
+                                    }}
+                                />
+                            </div>
+                        )}
                         <div style={{ display: 'grid', gap: '0.85rem' }}>
                             {q.options.map((opt, oIndex) => (
                                 <div
