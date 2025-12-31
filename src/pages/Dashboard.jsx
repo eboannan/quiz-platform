@@ -154,26 +154,22 @@ const Dashboard = () => {
     );
 
     // Tab renders...
-    const renderOverview = () => (
-        {/* Simulation Select Modal remains similar but with responsive width */ }
-            {
-        showSimulationSelect && (
-            <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
-                <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '24px', maxWidth: '500px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                        <h3 style={{ margin: 0 }}>Select Student</h3>
-                        <button onClick={() => setShowSimulationSelect(false)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
-                    </div>
-                    <div style={{ display: 'grid', gap: '0.75rem' }}>
-                        {students.map(s => (
-                            <button key={s.id} onClick={() => startSimulation(s)} style={{ padding: '1rem', textAlign: 'left', border: '1px solid #e2e8f0', borderRadius: '12px', backgroundColor: '#f8fafc', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ fontWeight: '600' }}>{s.firstName} {s.lastName}</span>
-                                <span style={{ color: '#64748b', fontSize: '0.8rem', backgroundColor: '#e2e8f0', padding: '0.2rem 0.6rem', borderRadius: '8px' }}>{s.grade}</span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
+    <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
+        <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '24px', maxWidth: '500px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <h3 style={{ margin: 0 }}>Select Student</h3>
+                <button onClick={() => setShowSimulationSelect(false)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
             </div>
+            <div style={{ display: 'grid', gap: '0.75rem' }}>
+                {students.map(s => (
+                    <button key={s.id} onClick={() => startSimulation(s)} style={{ padding: '1rem', textAlign: 'left', border: '1px solid #e2e8f0', borderRadius: '12px', backgroundColor: '#f8fafc', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: '600' }}>{s.firstName} {s.lastName}</span>
+                        <span style={{ color: '#64748b', fontSize: '0.8rem', backgroundColor: '#e2e8f0', padding: '0.2rem 0.6rem', borderRadius: '8px' }}>{s.grade}</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+    </div>
         )
     }
         </div >
