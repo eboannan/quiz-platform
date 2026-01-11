@@ -190,3 +190,40 @@ h3 {
   font-size: 1rem;
   white-space: nowrap;
 }
+
+.page-wrapper {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-wrapper {
+    padding: 2rem;
+  }
+}
+
+.card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 2rem;
+  }
+}
+
+.grid-cols-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

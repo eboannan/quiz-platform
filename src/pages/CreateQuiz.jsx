@@ -98,7 +98,7 @@ const CreateQuiz = () => {
     };
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', padding: '2rem' }}>
+        <div className="page-wrapper">
             <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <h1 style={{ fontSize: '2rem', fontWeight: '800' }}>{id ? 'Edit Quiz' : 'Create New Quiz'}</h1>
@@ -117,7 +117,7 @@ const CreateQuiz = () => {
                 </div>
 
                 {/* Quiz Details */}
-                <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', marginBottom: '2rem' }}>
+                <div className="card" style={{ marginBottom: '2rem' }}>
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>Quiz Title</label>
                     <input
                         type="text"
@@ -137,7 +137,7 @@ const CreateQuiz = () => {
                 {/* Questions List */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                     {questions.map((q, qIndex) => (
-                        <div key={q.id} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '16px', boxShadow: 'var(--shadow-sm)' }}>
+                        <div key={q.id} className="card">
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                                 <h3 style={{ fontSize: '1.2rem' }}>Question {qIndex + 1}</h3>
                                 {questions.length > 1 && (
@@ -199,7 +199,7 @@ const CreateQuiz = () => {
                                 )}
                             </div>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+                            <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
                                 {q.options.map((opt, oIndex) => (
                                     <div key={oIndex} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <input
@@ -228,7 +228,7 @@ const CreateQuiz = () => {
 
                             <div style={{ paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', marginBottom: '0.5rem' }}>Tags (Optional)</p>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                                <div className="grid-cols-3">
                                     <input
                                         type="text"
                                         placeholder="Class (e.g., 5A)"
