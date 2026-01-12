@@ -60,12 +60,16 @@ app.use('/api/attempts', attemptRoutes);
 // Catch-all handler for any request that doesn't match an API route
 app.get('*', (req, res) => {
     const indexPath = path.join(distPath, 'index.html');
+    console.log(`[SPA Fallback] Request for ${req.url} -> serving ${indexPath}`);
 
     if (fs.existsSync(indexPath)) {
-        res.sendFile(indexPath, (err) => {
+        fs.readFile(indexPath, 'utf8', (err, data) => {
             if (err) {
-                console.error("Error sending index.html:", err);
-                res.status(500).send(`Error sending frontend: ${err.message}`);
+                console.error("Error reading index.html:", err);
+                res.status(500).send(`Error reading frontend file: ${err.message}`);
+            } else {
+                res.setHeader('Content-Type', 'text/html');
+                res.send(data);
             }
         });
     } else {
