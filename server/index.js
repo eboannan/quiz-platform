@@ -31,7 +31,8 @@ const path = require('path');
 // ... (existing middleware)
 
 // Serve Static Files from React App
-app.use(express.static(path.join(__dirname, '../dist')));
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -40,9 +41,13 @@ app.use('/api/quizzes', quizRoutes);
 app.use('/api/attempts', attemptRoutes);
 
 // Catch-all handler for any request that doesn't match an API route
-// Sends index.html so React Router can handle the path
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+    res.sendFile(path.join(distPath, 'index.html'), (err) => {
+        if (err) {
+            console.error("Error sending index.html from path:", path.join(distPath, 'index.html'), err);
+            res.status(500).send(`Server Error: Could not load frontend. Path attempted: ${path.join(distPath, 'index.html')}. Error: ${err.message}`);
+        }
+    });
 });
 
 app.listen(PORT, () => {
