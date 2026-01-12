@@ -59,12 +59,30 @@ app.use('/api/attempts', attemptRoutes);
 
 // Catch-all handler for any request that doesn't match an API route
 app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'), (err) => {
-        if (err) {
-            console.error("Error sending index.html from path:", path.join(distPath, 'index.html'), err);
-            res.status(500).send(`Server Error: Could not load frontend. Path attempted: ${path.join(distPath, 'index.html')}. Error: ${err.message}`);
-        }
-    });
+    const indexPath = path.join(distPath, 'index.html');
+
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath, (err) => {
+            if (err) {
+                console.error("Error sending index.html:", err);
+                res.status(500).send(`Error sending frontend: ${err.message}`);
+            }
+        });
+    } else {
+        console.error("Index.html missing at:", indexPath);
+        res.status(404).send(`
+            <html>
+                <body style="font-family: sans-serif; padding: 2rem; max-width: 600px; margin: 0 auto; background-color: #fef2f2; color: #991b1b;">
+                    <h1>Deployment Issue</h1>
+                    <p>The server is running, but the React Frontend application (index.html) was not found.</p>
+                    <p><strong>Expected Path:</strong> ${indexPath}</p>
+                    <hr/>
+                    <p><em>This usually means the build script failed or the 'dist' folder was not created correctly.</em></p>
+                    <a href="/test-debug">View Server Debug Info</a>
+                </body>
+            </html>
+        `);
+    }
 });
 
 app.listen(PORT, () => {
