@@ -27,8 +27,25 @@ app.use('/api/quizzes', quizRoutes);
 app.use('/api/attempts', attemptRoutes);
 
 const path = require('path');
+const fs = require('fs');
 
 // ... (existing middleware)
+
+// DEBUG ROUTE: Check file system from browser
+app.get('/test-debug', (req, res) => {
+    try {
+        const debugInfo = {
+            currentDir: __dirname,
+            rootDirFiles: fs.readdirSync(path.join(__dirname, '../')),
+            distPath: path.join(__dirname, '../dist'),
+            distExists: fs.existsSync(path.join(__dirname, '../dist')),
+            distFiles: fs.existsSync(path.join(__dirname, '../dist')) ? fs.readdirSync(path.join(__dirname, '../dist')) : 'DIST FOLDER MISSING!'
+        };
+        res.json(debugInfo);
+    } catch (e) {
+        res.status(500).json({ error: e.message, stack: e.stack });
+    }
+});
 
 // Serve Static Files from React App
 const distPath = path.join(__dirname, '../dist');
