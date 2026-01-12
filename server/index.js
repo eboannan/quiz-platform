@@ -26,8 +26,23 @@ app.use('/api/students', studentRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/attempts', attemptRoutes);
 
-app.get('/', (req, res) => {
-    res.send('School Quiz API is running');
+const path = require('path');
+
+// ... (existing middleware)
+
+// Serve Static Files from React App
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/quizzes', quizRoutes);
+app.use('/api/attempts', attemptRoutes);
+
+// Catch-all handler for any request that doesn't match an API route
+// Sends index.html so React Router can handle the path
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
