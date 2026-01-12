@@ -77,6 +77,55 @@ router.post('/:id/assign', async (req, res) => {
     }
 });
 
+// Update Quiz
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, questions } = req.body;
+
+        // Transaction to ensure atomicity
+        const updatedQuiz = await prisma.$transaction(async (prisma) => {
+            // 1. Update Quiz Title
+            const quiz = await prisma.quiz.update({
+                where: { id },
+                data: { title }
+            });
+
+            // 2. Delete existing questions
+            await prisma.question.deleteMany({
+                where: { quizId: id }
+            });
+
+            // 3. Create new questions
+            if (questions && questions.length > 0) {
+                await prisma.question.createMany({
+                    data: questions.map(q => ({
+                        quizId: id,
+                        text: q.text,
+                        options: JSON.stringify(q.options),
+                        correctIndex: q.correct,
+                        image: q.image || null,
+                        tags: q.tags ? JSON.stringify(q.tags) : JSON.stringify({})
+                    }))
+                });
+            }
+
+            return quiz;
+        });
+
+        // Fetch the full quiz to return
+        const fullQuiz = await prisma.quiz.findUnique({
+            where: { id },
+            include: { questions: true }
+        });
+
+        res.json(fullQuiz);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // Delete Quiz
 router.delete('/:id', async (req, res) => {
     try {

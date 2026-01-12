@@ -55,6 +55,7 @@ export const quizAPI = {
     getAll: (teacherId) => api.get(`quizzes/teacher/${teacherId}`),
     getForStudent: (studentId) => api.get(`quizzes/student/${studentId}`),
     create: (data) => api.post('quizzes', data),
+    update: (id, data) => api.put(`quizzes/${id}`, data),
     assign: (quizId, studentId) => api.post(`quizzes/${quizId}/assign`, { studentId }),
     delete: (id) => api.delete(`quizzes/${id}`)
 };

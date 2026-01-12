@@ -82,12 +82,23 @@ const CreateQuiz = () => {
         setIsLoading(true);
 
         try {
-            await quizAPI.create({
-                title: quizTitle,
-                teacherId: user.id,
-                questions: questions
-            });
-            alert('Quiz Saved Successfully!');
+
+            if (id) {
+                // Update existing quiz
+                await quizAPI.update(id, {
+                    title: quizTitle,
+                    questions: questions
+                });
+                alert('Quiz Updated Successfully!');
+            } else {
+                // Create new quiz
+                await quizAPI.create({
+                    title: quizTitle,
+                    teacherId: user.id,
+                    questions: questions
+                });
+                alert('Quiz Saved Successfully!');
+            }
             navigate('/parent/dashboard');
         } catch (error) {
             console.error('Error saving quiz:', error);
