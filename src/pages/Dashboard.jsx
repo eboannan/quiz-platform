@@ -293,7 +293,7 @@ const Dashboard = () => {
             {selectedStudentForProgress && (
                 <div
                     onClick={() => setSelectedStudentForProgress(null)}
-                    style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}
+                    style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', zIndex: 100, padding: '1rem', paddingTop: '10vh' }}
                 >
                     <div
                         onClick={(e) => e.stopPropagation()}
