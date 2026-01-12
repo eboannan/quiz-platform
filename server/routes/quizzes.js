@@ -98,14 +98,17 @@ router.put('/:id', async (req, res) => {
 
             // 3. Create new questions
             if (questions && questions.length > 0) {
+                const questionsData = questions.map(q => ({
+                    quizId: id,
+                    text: q.text || "Question Text",
+                    options: JSON.stringify(q.options || []),
+                    correctIndex: Number(q.correct || 0),
+                    image: q.image || null
+                }));
+                console.log("Preparing to create questions:", JSON.stringify(questionsData, null, 2));
+
                 await prisma.question.createMany({
-                    data: questions.map(q => ({
-                        quizId: id,
-                        text: q.text,
-                        options: JSON.stringify(q.options),
-                        correctIndex: q.correct,
-                        image: q.image || null
-                    }))
+                    data: questionsData
                 });
             }
 
