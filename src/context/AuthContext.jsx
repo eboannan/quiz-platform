@@ -85,9 +85,25 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    if (loading) {
+        return (
+            <div style={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#0f172a',
+                color: 'white'
+            }}>
+                Loading PenguinPrep...
+            </div>
+        );
+    }
+
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, login, register, logout, loading }}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };
