@@ -104,8 +104,7 @@ router.put('/:id', async (req, res) => {
                         text: q.text,
                         options: JSON.stringify(q.options),
                         correctIndex: q.correct,
-                        image: q.image || null,
-                        tags: q.tags ? JSON.stringify(q.tags) : JSON.stringify({})
+                        image: q.image || null
                     }))
                 });
             }
