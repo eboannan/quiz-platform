@@ -102,7 +102,8 @@ const CreateQuiz = () => {
             navigate('/parent/dashboard');
         } catch (error) {
             console.error('Error saving quiz:', error);
-            alert('Failed to save quiz to server.');
+            const errorMessage = error.response?.data?.error || error.message || 'Unknown error';
+            alert(`Failed to save quiz to server: ${errorMessage}`);
         } finally {
             setIsLoading(false);
         }
