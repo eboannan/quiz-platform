@@ -38,14 +38,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/parent/edit-quiz/:id"
-            element={
-              <ProtectedRoute>
-                <CreateQuiz />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/parent/edit-quiz/:id" element={<ProtectedRoute><CreateQuiz /></ProtectedRoute>} />
+          <Route path="/parent/quiz-result/:attemptId" element={<ProtectedRoute><QuizResult /></ProtectedRoute>} />
           {/* Student Routes */}
           <Route path="/student/login" element={<StudentLogin />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} />

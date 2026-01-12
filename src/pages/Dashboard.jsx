@@ -291,23 +291,57 @@ const Dashboard = () => {
             </div>
             {/* Report Modal adjustment */}
             {selectedStudentForProgress && (
-                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
-                    <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '24px', maxWidth: '600px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}>
+                <div
+                    onClick={() => setSelectedStudentForProgress(null)}
+                    style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '24px', maxWidth: '600px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}
+                    >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                             <h3 style={{ margin: 0 }}>Progress: {selectedStudentForProgress.firstName}</h3>
-                            <button onClick={() => setSelectedStudentForProgress(null)} style={{ background: 'none', border: 'none', fontSize: '2rem', cursor: 'pointer' }}>×</button>
+                            <button
+                                onClick={() => setSelectedStudentForProgress(null)}
+                                style={{
+                                    background: '#f1f5f9',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '36px',
+                                    height: '36px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.5rem',
+                                    cursor: 'pointer',
+                                    color: '#64748b'
+                                }}
+                            >
+                                ×
+                            </button>
                         </div>
                         {selectedStudentForProgress.attempts?.length === 0 ? (
                             <p style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>No data yet.</p>
                         ) : (
                             <div style={{ display: 'grid', gap: '1rem' }}>
                                 {selectedStudentForProgress.attempts.map((att, i) => (
-                                    <div key={i} style={{ padding: '1.25rem', backgroundColor: '#f8fafc', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid #e2e8f0' }}>
+                                    <div key={i} style={{ padding: '1.25rem', backgroundColor: '#f8fafc', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid #e2e8f0', flexWrap: 'wrap', gap: '1rem' }}>
                                         <div>
                                             <div style={{ fontWeight: '700' }}>{quizzes.find(q => q.id === att.quizId)?.title || 'Quiz'}</div>
                                             <div style={{ fontSize: '0.85rem', color: '#64748b' }}>{new Date(att.date).toLocaleDateString()}</div>
                                         </div>
-                                        <div style={{ fontSize: '1.2rem', fontWeight: '800', color: att.score / att.total > 0.7 ? '#16a34a' : '#000' }}>{att.score}/{att.total}</div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <div style={{ fontSize: '1.2rem', fontWeight: '800', color: att.score / att.total > 0.7 ? '#16a34a' : '#000' }}>
+                                                {att.score}/{att.total}
+                                            </div>
+                                            <button
+                                                onClick={() => navigate(`/parent/quiz-result/${att.id}`)}
+                                                className="btn btn-secondary"
+                                                style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', borderRadius: '8px' }}
+                                            >
+                                                View
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
