@@ -43,7 +43,7 @@ router.get('/teacher/:teacherId', async (req, res) => {
             questions: q.questions.map(qu => ({
                 ...qu,
                 options: JSON.parse(qu.options),
-                tags: qu.tags ? JSON.parse(qu.tags) : {}
+                options: JSON.parse(qu.options)
             })),
             assignedTo: q.assignments.map(a => a.studentId)
         }));
@@ -154,7 +154,7 @@ router.get('/student/:studentId', async (req, res) => {
                 questions: quiz.questions.map(q => ({
                     ...q,
                     options: JSON.parse(q.options),
-                    tags: q.tags ? JSON.parse(q.tags) : {}
+                    options: JSON.parse(q.options)
                 }))
             };
         });

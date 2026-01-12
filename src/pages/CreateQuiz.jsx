@@ -9,7 +9,7 @@ const CreateQuiz = () => {
     const { id } = useParams();
     const [quizTitle, setQuizTitle] = useState('');
     const [questions, setQuestions] = useState([
-        { id: 1, text: '', options: ['', '', '', ''], correct: 0, tags: { class: '', course: '', student: '' } }
+        { id: 1, text: '', options: ['', '', '', ''], correct: 0 }
     ]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,7 +36,7 @@ const CreateQuiz = () => {
     const addQuestion = () => {
         setQuestions([
             ...questions,
-            { id: Date.now(), text: '', options: ['', '', '', ''], correct: 0, tags: { class: '', course: '', student: '' } }
+            { id: Date.now(), text: '', options: ['', '', '', ''], correct: 0 }
         ]);
     };
 
@@ -52,11 +52,7 @@ const CreateQuiz = () => {
         setQuestions(newQuestions);
     };
 
-    const updateTag = (qIndex, tagField, value) => {
-        const newQuestions = [...questions];
-        newQuestions[qIndex].tags[tagField] = value;
-        setQuestions(newQuestions);
-    };
+
 
     const handleImageUpload = (qIndex, e) => {
         const file = e.target.files[0];
@@ -238,32 +234,7 @@ const CreateQuiz = () => {
                                 ))}
                             </div>
 
-                            <div style={{ paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
-                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', marginBottom: '0.5rem' }}>Tags (Optional)</p>
-                                <div className="grid-cols-3">
-                                    <input
-                                        type="text"
-                                        placeholder="Class (e.g., 5A)"
-                                        value={q.tags.class}
-                                        onChange={(e) => updateTag(qIndex, 'class', e.target.value)}
-                                        style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #e2e8f0', fontSize: '0.9rem' }}
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Course (e.g., Math)"
-                                        value={q.tags.course}
-                                        onChange={(e) => updateTag(qIndex, 'course', e.target.value)}
-                                        style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #e2e8f0', fontSize: '0.9rem' }}
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Student (e.g., Araba)"
-                                        value={q.tags.student}
-                                        onChange={(e) => updateTag(qIndex, 'student', e.target.value)}
-                                        style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #e2e8f0', fontSize: '0.9rem' }}
-                                    />
-                                </div>
-                            </div>
+
                         </div>
                     ))}
                 </div>
