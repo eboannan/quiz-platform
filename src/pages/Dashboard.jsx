@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { studentAPI, quizAPI } from '../api';
 
 const Dashboard = () => {
     const { logout, user } = useAuth();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     // Top-Level State
-    const [activeTab, setActiveTab] = useState('Overview');
+    // Derive activeTab from URL, default to 'Overview'
+    const activeTab = searchParams.get('tab') || 'Overview';
+
+    // Helper to update active tab
+    const setActiveTab = (tab) => {
+        setSearchParams({ tab });
+    };
+
     const [quizzes, setQuizzes] = useState([]);
     const [students, setStudents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -105,10 +113,32 @@ const Dashboard = () => {
     // UI State
     const [showStudentForm, setShowStudentForm] = useState(false);
     const [showSimulationSelect, setShowSimulationSelect] = useState(false);
+
+    // Derive selected student from URL
     const [selectedStudentForProgress, setSelectedStudentForProgress] = useState(null);
     const [newStudent, setNewStudent] = useState({
         firstName: '', lastName: '', username: '', password: '', age: '', grade: '', accessCode: ''
     });
+
+    // Effect to sync URL param 'report' with modal state
+    useEffect(() => {
+        const studentId = searchParams.get('report');
+        if (studentId && students.length > 0) {
+            const found = students.find(s => s.id === studentId);
+            if (found) setSelectedStudentForProgress(found);
+        } else if (!studentId) {
+            setSelectedStudentForProgress(null);
+        }
+    }, [searchParams, students]);
+
+    // Helpers for report modal
+    const openReport = (student) => {
+        setSearchParams({ tab: 'Students', report: student.id });
+    };
+
+    const closeReport = () => {
+        setSearchParams({ tab: 'Students' });
+    };
 
     // Sidebar Content Helper
     const SidebarContent = () => (
@@ -278,7 +308,7 @@ const Dashboard = () => {
                                     <td style={{ padding: '1.25rem' }}><code style={{ backgroundColor: '#f1f5f9', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem' }}>{s.username}</code></td>
                                     <td style={{ padding: '1.25rem' }}><code style={{ backgroundColor: '#f1f5f9', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem' }}>{s.password}</code></td>
                                     <td style={{ padding: '1.25rem', textAlign: 'center' }}>
-                                        <button onClick={() => setSelectedStudentForProgress(s)} style={{ color: 'var(--color-primary)', fontWeight: '700', textDecoration: 'underline', background: 'none' }}>Report</button>
+                                        <button onClick={() => openReport(s)} style={{ color: 'var(--color-primary)', fontWeight: '700', textDecoration: 'underline', background: 'none' }}>Report</button>
                                     </td>
                                     <td style={{ padding: '1.25rem', textAlign: 'right' }}>
                                         <button onClick={() => deleteStudent(s.id)} style={{ color: '#ef4444', background: 'none', fontWeight: '600' }}>Remove</button>
@@ -292,7 +322,7 @@ const Dashboard = () => {
             {/* Report Modal adjustment */}
             {selectedStudentForProgress && (
                 <div
-                    onClick={() => setSelectedStudentForProgress(null)}
+                    onClick={closeReport}
                     style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', zIndex: 100, padding: '1rem', paddingTop: '10vh' }}
                 >
                     <div
@@ -302,7 +332,7 @@ const Dashboard = () => {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                             <h3 style={{ margin: 0 }}>Progress: {selectedStudentForProgress.firstName}</h3>
                             <button
-                                onClick={() => setSelectedStudentForProgress(null)}
+                                onClick={closeReport}
                                 style={{
                                     background: '#f1f5f9',
                                     border: 'none',
