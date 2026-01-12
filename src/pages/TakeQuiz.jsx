@@ -84,7 +84,8 @@ const TakeQuiz = () => {
                     studentId: student.id,
                     quizId: quiz.id,
                     score: correctCount,
-                    total: quiz.questions.length
+                    total: quiz.questions.length,
+                    answers: JSON.stringify(answers)
                 });
             } catch (error) {
                 console.error('Error saving attempt:', error);

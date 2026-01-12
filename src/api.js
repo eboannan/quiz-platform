@@ -61,7 +61,8 @@ export const quizAPI = {
 };
 
 export const attemptAPI = {
-    create: (data) => api.post('attempts', data)
+    create: (data) => api.post('attempts', data),
+    get: (id) => api.get(`attempts/${id}`)
 };
 
 export default api;

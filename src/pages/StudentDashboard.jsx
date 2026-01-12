@@ -137,7 +137,7 @@ const StudentDashboard = () => {
                                                         style={{ padding: '0.6rem', fontSize: '0.85rem', flex: 1.5, borderRadius: '12px' }}
                                                         onClick={() => navigate(`/student/take-quiz/${q.id}`)}
                                                     >
-                                                        Play Quiz
+                                                        Take Quiz
                                                     </button>
                                                 </div>
                                             </div>
@@ -159,7 +159,22 @@ const StudentDashboard = () => {
                                                                     fontSize: '0.9rem',
                                                                     border: '1px solid #f1f5f9'
                                                                 }}>
-                                                                    <span style={{ color: '#64748b', fontWeight: '500' }}>{new Date(att.date).toLocaleDateString()}</span>
+                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                                        <span style={{ color: '#64748b', fontWeight: '500' }}>{new Date(att.date).toLocaleDateString()}</span>
+                                                                        <button
+                                                                            onClick={() => navigate(`/student/quiz-result/${att.id}`)}
+                                                                            style={{
+                                                                                fontSize: '0.75rem',
+                                                                                padding: '0.2rem 0.5rem',
+                                                                                borderRadius: '4px',
+                                                                                border: '1px solid #cbd5e1',
+                                                                                background: 'white',
+                                                                                cursor: 'pointer'
+                                                                            }}
+                                                                        >
+                                                                            View
+                                                                        </button>
+                                                                    </div>
                                                                     <span style={{ fontWeight: '800', color: (att.score / att.total) > 0.8 ? '#16a34a' : '#000' }}>
                                                                         {att.score} / {att.total}
                                                                     </span>

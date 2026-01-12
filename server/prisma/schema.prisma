@@ -81,6 +81,7 @@ model Attempt {
   date      DateTime @default(now())
   studentId String
   quizId    String
+  answers   String?
 
   student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
   quiz    Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
