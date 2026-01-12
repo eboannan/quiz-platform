@@ -77,6 +77,24 @@ router.post('/:id/assign', async (req, res) => {
     }
 });
 
+// Unassign Quiz
+router.post('/:id/unassign', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { studentId } = req.body;
+
+        await prisma.assignment.deleteMany({
+            where: {
+                quizId: id,
+                studentId: studentId
+            }
+        });
+        res.json({ success: true });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // Update Quiz
 router.put('/:id', async (req, res) => {
     try {

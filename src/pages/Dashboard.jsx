@@ -110,6 +110,16 @@ const Dashboard = () => {
         }
     };
 
+    const handleUnassign = async (quizId, studentId) => {
+        if (!window.confirm('Unassign this quiz from the student?')) return;
+        try {
+            await quizAPI.unassign(quizId, studentId);
+            fetchData(); // Refresh list
+        } catch (error) {
+            alert('Failed to unassign quiz');
+        }
+    };
+
     // UI State
     const [showStudentForm, setShowStudentForm] = useState(false);
     const [showSimulationSelect, setShowSimulationSelect] = useState(false);
@@ -238,13 +248,36 @@ const Dashboard = () => {
                             <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.85rem' }}>{quiz.questions.length} Questions • {new Date(quiz.createdAt).toLocaleDateString()}</p>
                             <div style={{ marginTop: 'auto', backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '16px', marginBottom: '1rem' }}>
                                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '700', marginBottom: '0.5rem', color: '#475569' }}>Assign Quiz:</label>
-                                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
                                     <select id={`assign-${quiz.id}`} style={{ flex: 1, padding: '0.6rem', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }}>
                                         <option value="">Select Student...</option>
                                         {students.map(s => <option key={s.id} value={s.id}>{s.firstName} {s.lastName}</option>)}
                                     </select>
                                     <button onClick={() => handleAssign(quiz.id)} style={{ padding: '0.6rem 1rem', borderRadius: '10px', backgroundColor: 'var(--color-primary)', color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }}>Assign</button>
                                 </div>
+                                {quiz.assignedTo && quiz.assignedTo.length > 0 && (
+                                    <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '0.75rem' }}>
+                                        <div style={{ fontSize: '0.75rem', fontWeight: '600', color: '#94a3b8', marginBottom: '0.5rem' }}>ASSIGNED TO:</div>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                            {quiz.assignedTo.map(studentId => {
+                                                const student = students.find(s => s.id === studentId);
+                                                if (!student) return null;
+                                                return (
+                                                    <span key={studentId} style={{ fontSize: '0.75rem', backgroundColor: 'white', border: '1px solid #cbd5e1', padding: '0.2rem 0.5rem', borderRadius: '99px', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                                                        {student.firstName}
+                                                        <button
+                                                            onClick={() => handleUnassign(quiz.id, studentId)}
+                                                            style={{ border: 'none', background: 'none', color: '#ef4444', fontWeight: 'bold', cursor: 'pointer', padding: 0, fontSize: '0.8rem', lineHeight: 1 }}
+                                                            title="Unassign"
+                                                        >
+                                                            ×
+                                                        </button>
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                                 <button onClick={() => navigate(`/parent/edit-quiz/${quiz.id}`)} className="btn btn-secondary" style={{ padding: '0.6rem', fontSize: '0.85rem', flex: 1 }}>Edit</button>
