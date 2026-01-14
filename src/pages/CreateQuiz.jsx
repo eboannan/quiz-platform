@@ -136,7 +136,7 @@ const CreateQuiz = () => {
 
             // Redirect based on role
             if (isStudent) {
-                navigate('/student/dashboard');
+                navigate('/student/dashboard?tab=created');
             } else {
                 navigate('/parent/dashboard');
             }

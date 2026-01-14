@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { studentAPI } from '../api';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { studentAPI, quizAPI } from '../api';
 
 const StudentDashboard = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [student, setStudent] = useState(null);
     const [assignedQuizzes, setAssignedQuizzes] = useState([]);
     const [createdQuizzes, setCreatedQuizzes] = useState([]);
-    const [activeTab, setActiveTab] = useState('assigned'); // 'assigned' or 'created'
+    const [activeTab, setActiveTab] = useState('assigned');
     const [expandedQuizId, setExpandedQuizId] = useState(null);
     const [isSimulated, setIsSimulated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,10 +22,14 @@ const StudentDashboard = () => {
         if (!stored) {
             navigate('/student/login');
         } else {
+            // Check for tab param
+            const tabParam = searchParams.get('tab');
+            if (tabParam === 'created') setActiveTab('created');
+
             const initialStudent = JSON.parse(stored);
             fetchStudentProfile(initialStudent.id);
         }
-    }, [navigate]);
+    }, [navigate, searchParams]);
 
     const fetchStudentProfile = async (id) => {
         setIsLoading(true);
