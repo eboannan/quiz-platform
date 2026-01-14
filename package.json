@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "node server/index.js",
-    "postinstall": "cd server && npm install && npx prisma generate && npx prisma db push --accept-data-loss",
+    "start": "cd server && npx prisma db push --accept-data-loss && node index.js",
+    "postinstall": "cd server && npm install && npx prisma generate",
     "lint": "eslint .",
     "preview": "vite preview"
   },
