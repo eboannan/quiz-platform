@@ -98,6 +98,11 @@ app.get('*', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', (err) => {
+    if (err) {
+        console.error("FAILED TO BIND PORT:", err);
+    } else {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Open in browser: http://localhost:${PORT}`);
+    }
 });
