@@ -22,8 +22,20 @@ const TakeQuiz = () => {
                     return;
                 }
 
-                const response = await quizAPI.getForStudent(student.id);
-                const foundQuiz = response.data.find(q => q.id === id);
+                // Try fetching assigned quizzes first
+                const assignedRes = await quizAPI.getForStudent(student.id);
+                let foundQuiz = assignedRes.data.find(q => q.id === id);
+
+                // If not found, try fetching created quizzes
+                if (!foundQuiz) {
+                    try {
+                        const createdRes = await quizAPI.getCreatedByStudent(student.id);
+                        foundQuiz = createdRes.data.find(q => q.id === id);
+                    } catch (e) {
+                        console.log("Not found in created quizzes either");
+                    }
+                }
+
                 if (foundQuiz) {
                     setQuiz(foundQuiz);
                 } else {
@@ -32,6 +44,7 @@ const TakeQuiz = () => {
                 }
             } catch (error) {
                 console.error('Error fetching quiz:', error);
+                navigate('/student/dashboard');
             } finally {
                 setIsLoading(false);
             }
