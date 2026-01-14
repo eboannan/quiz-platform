@@ -47,7 +47,9 @@ const StudentDashboard = () => {
             // 2. Fetch Created Quizzes (New)
             // 2. Fetch Created Quizzes (New)
             try {
+                console.log(`Fetching created quizzes for student ID: ${id}`);
                 const createdResponse = await quizAPI.getCreatedByStudent(id);
+                console.log("Created quizzes response:", createdResponse.data);
                 setCreatedQuizzes(createdResponse.data);
             } catch (err) {
                 console.error("Failed to fetch created quizzes", err);
@@ -256,9 +258,22 @@ const StudentDashboard = () => {
                                 <button
                                     onClick={() => navigate('/student/create-quiz')}
                                     className="btn btn-primary"
-                                    style={{ width: '100%', maxWidth: '300px', borderRadius: '12px', padding: '1rem' }}
+                                    style={{ width: '100%', maxWidth: '300px', borderRadius: '12px', padding: '1rem', marginRight: '1rem' }}
                                 >
                                     + Create New Quiz
+                                </button>
+                                <button
+                                    onClick={() => fetchStudentProfile(student.id)}
+                                    style={{
+                                        padding: '1rem',
+                                        borderRadius: '12px',
+                                        border: '1px solid #cbd5e1',
+                                        backgroundColor: 'white',
+                                        cursor: 'pointer',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    🔄 Refresh
                                 </button>
                             </div>
 
