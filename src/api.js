@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-// Base URL for backend. 
-// We are making this extra robust to handle common deployment mistakes.
-let rawURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Base URL for backend.
+// In production, we use relative path '/api' to automatically match the domain.
+// In local dev, vite.config.js proxies '/api' to localhost:5000.
+let rawURL = import.meta.env.VITE_API_URL || '/api';
 
 // Ensure the URL ends with /api (but not /api/)
 let cleanURL = rawURL.trim();
-if (!cleanURL.includes('/api')) {
+if (!cleanURL.endsWith('/api') && !cleanURL.endsWith('/api/')) {
+    // If it was just '/' or empty, append 'api'
     cleanURL = cleanURL.replace(/\/$/, '') + '/api';
 }
 if (!cleanURL.endsWith('/')) {
