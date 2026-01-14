@@ -130,7 +130,6 @@ const CreateQuiz = () => {
                     payload.teacherId = currentUser.id;
                 }
 
-                console.log("Saving quiz with payload:", payload);
                 await quizAPI.create(payload);
                 alert('Quiz Saved Successfully!');
             }

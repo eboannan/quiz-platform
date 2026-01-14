@@ -11,8 +11,6 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: "Must provide either teacherId or studentId" });
         }
 
-        console.log(`Creating quiz. Title: ${title}, Teacher: ${teacherId}, Student: ${studentId}`);
-
         // Create Quiz and Questions via nested write
         const quiz = await prisma.quiz.create({
             data: {
@@ -39,13 +37,11 @@ router.post('/', async (req, res) => {
 
 // Get Quizzes Created by Student
 router.get('/student-created/:studentId', async (req, res) => {
-    console.log(`GET /student-created/${req.params.studentId} hit`);
     try {
         const quizzes = await prisma.quiz.findMany({
             where: { studentId: req.params.studentId },
             include: { questions: true }
         });
-        console.log(`Found ${quizzes.length} created quizzes for student ${req.params.studentId}`);
 
         const formatted = quizzes.map(q => ({
             ...q,

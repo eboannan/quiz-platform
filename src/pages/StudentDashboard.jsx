@@ -45,10 +45,9 @@ const StudentDashboard = () => {
             setAssignedQuizzes(assigned);
 
             // 2. Fetch Created Quizzes (New)
+            // 2. Fetch Created Quizzes (New)
             try {
-                console.log(`Fetching created quizzes for student ID: ${id}`);
                 const createdResponse = await quizAPI.getCreatedByStudent(id);
-                console.log("Created quizzes response:", createdResponse.data);
                 setCreatedQuizzes(createdResponse.data);
             } catch (err) {
                 console.error("Failed to fetch created quizzes", err);
