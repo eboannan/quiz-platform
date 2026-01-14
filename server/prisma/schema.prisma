@@ -23,6 +23,7 @@ model User {
   students  Student[]
 }
 
+
 model Student {
   id         String   @id @default(uuid())
   firstName  String
@@ -37,15 +38,18 @@ model Student {
   teacher     User         @relation(fields: [teacherId], references: [id])
   attempts    Attempt[]
   assignments Assignment[]
+  createdQuizzes Quiz[]    @relation("StudentCreatedQuizzes")
 }
 
 model Quiz {
   id        String   @id @default(uuid())
   title     String
-  teacherId String
+  teacherId String?
+  studentId String?
   createdAt DateTime @default(now())
 
-  teacher     User         @relation(fields: [teacherId], references: [id])
+  teacher     User?         @relation(fields: [teacherId], references: [id])
+  student     Student?      @relation("StudentCreatedQuizzes", fields: [studentId], references: [id])
   questions   Question[]
   assignments Assignment[]
   attempts    Attempt[]

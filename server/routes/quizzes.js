@@ -5,13 +5,18 @@ const prisma = require('../db');
 // Create Quiz
 router.post('/', async (req, res) => {
     try {
-        const { title, teacherId, questions } = req.body;
+        const { title, teacherId, studentId, questions } = req.body;
+
+        if (!teacherId && !studentId) {
+            return res.status(400).json({ error: "Must provide either teacherId or studentId" });
+        }
 
         // Create Quiz and Questions via nested write
         const quiz = await prisma.quiz.create({
             data: {
                 title,
-                teacherId,
+                teacherId: teacherId || null,
+                studentId: studentId || null,
                 questions: {
                     create: questions.map(q => ({
                         text: q.text,
@@ -24,6 +29,28 @@ router.post('/', async (req, res) => {
             include: { questions: true }
         });
         res.json(quiz);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
+// Get Quizzes Created by Student
+router.get('/student-created/:studentId', async (req, res) => {
+    try {
+        const quizzes = await prisma.quiz.findMany({
+            where: { studentId: req.params.studentId },
+            include: { questions: true }
+        });
+
+        const formatted = quizzes.map(q => ({
+            ...q,
+            questions: q.questions.map(qu => ({
+                ...qu,
+                options: JSON.parse(qu.options),
+            }))
+        }));
+        res.json(formatted);
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: e.message });
