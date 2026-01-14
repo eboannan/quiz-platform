@@ -284,45 +284,97 @@ const StudentDashboard = () => {
                                 </div>
                             ) : (
                                 <div style={{ display: 'grid', gap: '1.25rem' }}>
-                                    {createdQuizzes.map(q => (
-                                        <div key={q.id} style={{
-                                            padding: 'clamp(1.25rem, 4vw, 1.75rem)',
-                                            border: '1px solid #e2e8f0',
-                                            borderRadius: '20px',
-                                            backgroundColor: '#fafafa',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            flexWrap: 'wrap',
-                                            gap: '1rem'
-                                        }}>
-                                            <div>
-                                                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.35rem', fontWeight: '700' }}>{q.title}</h4>
-                                                <span style={{ color: '#64748b', fontSize: '0.85rem' }}>{q.questions?.length || 0} Questions</span>
+                                    {createdQuizzes.map(q => {
+                                        const attempts = (student.attempts || []).filter(a => a.quizId === q.id);
+                                        attempts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                                        return (
+                                            <div key={q.id} style={{
+                                                padding: 'clamp(1.25rem, 4vw, 1.75rem)',
+                                                border: '1px solid #e2e8f0',
+                                                borderRadius: '20px',
+                                                backgroundColor: '#fafafa',
+                                            }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+                                                    <div>
+                                                        <h4 style={{ fontSize: '1.1rem', marginBottom: '0.35rem', fontWeight: '700' }}>{q.title}</h4>
+                                                        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                                                            <span style={{ color: '#64748b', fontSize: '0.85rem' }}>{q.questions?.length || 0} Questions</span>
+                                                            {attempts.length > 0 && (
+                                                                <span style={{ backgroundColor: '#e0e7ff', color: 'var(--color-primary)', padding: '0.2rem 0.6rem', borderRadius: '8px', fontSize: '0.75rem', fontWeight: '800' }}>
+                                                                    {attempts.length} Attempt{attempts.length !== 1 && 's'}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                        <button
+                                                            onClick={() => setExpandedQuizId(expandedQuizId === q.id ? null : q.id)}
+                                                            className="btn btn-secondary"
+                                                            style={{ padding: '0.6rem', fontSize: '0.85rem', borderRadius: '12px', border: '1px solid #cbd5e1', background: 'white' }}
+                                                        >
+                                                            {expandedQuizId === q.id ? 'Hide' : 'History'}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => navigate(`/student/edit-quiz/${q.id}`)}
+                                                            style={{ padding: '0.6rem 1rem', borderRadius: '12px', background: 'white', border: '1px solid #cbd5e1', cursor: 'pointer', fontWeight: '600' }}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            onClick={() => navigate(`/student/take-quiz/${q.id}`)}
+                                                            className="btn btn-primary"
+                                                            style={{ borderRadius: '12px', padding: '0.6rem 1rem', fontSize: '0.9rem' }}
+                                                        >
+                                                            Take Quiz
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDeleteQuiz(q.id)}
+                                                            style={{ padding: '0.6rem', borderRadius: '12px', background: '#fee2e2', border: 'none', color: '#ef4444', cursor: 'pointer' }}
+                                                        >
+                                                            🗑️
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                {expandedQuizId === q.id && (
+                                                    <div className="animate-fade-in" style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '2px dashed #e2e8f0' }}>
+                                                        <h5 style={{ marginBottom: '1rem', color: '#475569', fontSize: '0.9rem', fontWeight: '700' }}>YOUR PAST SCORES</h5>
+                                                        {attempts.length === 0 ? (
+                                                            <p style={{ fontStyle: 'italic', color: '#94a3b8', fontSize: '0.9rem' }}>No history found.</p>
+                                                        ) : (
+                                                            <div style={{ display: 'grid', gap: '0.75rem' }}>
+                                                                {attempts.map((att, idx) => (
+                                                                    <div key={idx} style={{
+                                                                        display: 'flex',
+                                                                        justifyContent: 'space-between',
+                                                                        padding: '1rem',
+                                                                        backgroundColor: 'white',
+                                                                        borderRadius: '12px',
+                                                                        fontSize: '0.9rem',
+                                                                        border: '1px solid #f1f5f9'
+                                                                    }}>
+                                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                                            <span style={{ color: '#64748b', fontWeight: '500' }}>{new Date(att.date).toLocaleDateString()}</span>
+                                                                            <button
+                                                                                onClick={() => navigate(`/student/quiz-result/${att.id}`)}
+                                                                                style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1', background: 'white', cursor: 'pointer' }}
+                                                                            >
+                                                                                View
+                                                                            </button>
+                                                                        </div>
+                                                                        <span style={{ fontWeight: '800', color: (att.score / att.total) > 0.8 ? '#16a34a' : '#000' }}>
+                                                                            {att.score} / {att.total}
+                                                                        </span>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
-                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                                <button
-                                                    onClick={() => navigate(`/student/edit-quiz/${q.id}`)}
-                                                    style={{ padding: '0.6rem 1rem', borderRadius: '12px', background: 'white', border: '1px solid #cbd5e1', cursor: 'pointer', fontWeight: '600' }}
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() => navigate(`/student/take-quiz/${q.id}`)}
-                                                    className="btn btn-primary"
-                                                    style={{ borderRadius: '12px', padding: '0.6rem 1rem', fontSize: '0.9rem' }}
-                                                >
-                                                    Take Quiz
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDeleteQuiz(q.id)}
-                                                    style={{ padding: '0.6rem', borderRadius: '12px', background: '#fee2e2', border: 'none', color: '#ef4444', cursor: 'pointer' }}
-                                                >
-                                                    🗑️
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             )}
                         </>
