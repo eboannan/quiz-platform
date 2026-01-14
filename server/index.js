@@ -7,6 +7,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Startup DB Check
+const prisma = require('./db');
+prisma.$connect()
+    .then(() => console.log('✅ Database connected successfully!'))
+    .catch(err => {
+        console.error('❌ Database connection failed on startup:', err);
+        console.error('DATABASE_URL is:', process.env.DATABASE_URL ? 'Set (Hidden)' : 'MISSING');
+    });
+
 app.use(cors({
     origin: process.env.FRONTEND_URL || '*', // Allow all in dev, but restricted in prod
     credentials: true

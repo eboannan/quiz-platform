@@ -30,8 +30,15 @@ router.post('/register', async (req, res) => {
         const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
         res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
+        console.error("REGISTRATION ERROR:", err);
+        console.error("DB URL Present?", !!process.env.DATABASE_URL);
+        console.error("JWT SECRET Present?", !!process.env.JWT_SECRET);
+
+        // Return actual error message for debugging (in prod you might hide this, but we need it now)
+        res.status(500).json({
+            error: err.message || 'Server error',
+            details: err.code ? `Prisma Error Code: ${err.code}` : 'No code'
+        });
     }
 });
 
