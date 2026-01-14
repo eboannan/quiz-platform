@@ -296,7 +296,7 @@ const StudentDashboard = () => {
                                                     className="btn btn-primary"
                                                     style={{ borderRadius: '12px', padding: '0.6rem 1rem', fontSize: '0.9rem' }}
                                                 >
-                                                    Play
+                                                    Take Quiz
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteQuiz(q.id)}
