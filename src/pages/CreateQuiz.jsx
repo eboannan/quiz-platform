@@ -67,7 +67,43 @@ const CreateQuiz = () => {
         }
     }, [id, currentUser, isStudent]);
 
-    // ... (helper functions unchanged) ...
+    const addQuestion = () => {
+        setQuestions([
+            ...questions,
+            { id: Date.now(), text: '', options: ['', '', '', ''], correct: 0 }
+        ]);
+    };
+
+    const updateQuestion = (index, field, value) => {
+        const newQuestions = [...questions];
+        newQuestions[index][field] = value;
+        setQuestions(newQuestions);
+    };
+
+    const updateOption = (qIndex, oIndex, value) => {
+        const newQuestions = [...questions];
+        newQuestions[qIndex].options[oIndex] = value;
+        setQuestions(newQuestions);
+    };
+
+    const handleImageUpload = (qIndex, e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Limit size to 2MB to prevent heavy payloads
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Image must be less than 2MB');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const newQuestions = [...questions];
+            newQuestions[qIndex].image = reader.result; // Store Base64
+            setQuestions(newQuestions);
+        };
+        reader.readAsDataURL(file);
+    };
 
     const handleSave = async () => {
         if (!quizTitle) return alert('Please enter a quiz title');
