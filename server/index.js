@@ -104,5 +104,17 @@ app.listen(PORT, '0.0.0.0', (err) => {
     } else {
         console.log(`Server running on port ${PORT}`);
         console.log(`Open in browser: http://localhost:${PORT}`);
+
+        // Run DB Migration in background to avoid blocking startup
+        console.log("🚀 Triggering background DB sync...");
+        const { exec } = require('child_process');
+        exec('npx prisma db push --accept-data-loss', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`❌ DB Sync Failed: ${error.message}`);
+                return;
+            }
+            if (stderr) console.error(`⚠️ DB Sync Stderr: ${stderr}`);
+            console.log(`✅ DB Sync Success: ${stdout}`);
+        });
     }
 });
