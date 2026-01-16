@@ -12,6 +12,30 @@ const auth = (req, res, next) => {
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
+// Update Student
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstName, lastName, username, password, age, grade } = req.body;
+
+        const updatedStudent = await prisma.student.update({
+            where: { id },
+            data: {
+                firstName,
+                lastName,
+                username,
+                password,
+                age: age ? parseInt(age) : null,
+                grade
+            }
+        });
+        res.json(updatedStudent);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // Create Student
 router.post('/', async (req, res) => {
     try {

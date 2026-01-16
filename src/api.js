@@ -50,6 +50,7 @@ export const studentAPI = {
     getAll: (teacherId) => api.get(`students?teacherId=${teacherId}`),
     getProfile: (id) => api.get(`students/${id}`),
     create: (data) => api.post('students', data),
+    update: (id, data) => api.put(`students/${id}`, data),
     delete: (id) => api.delete(`students/${id}`)
 };
 
